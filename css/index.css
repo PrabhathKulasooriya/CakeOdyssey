@@ -1,0 +1,257 @@
+@import url('fonts.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-dark: #2d1e1c;
+    --text-muted: #6b5350;
+    --text-highlight: #b85b6c;
+    --bg-banner: #9a5f6a;
+    --bg-banner-dark: #834f59;
+    --accent-light: #fff5f6;
+    --font-heading: 'Playfair Display', 'Georgia', serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fdfbfb;
+    overflow-x: hidden;
+}
+
+/* Hero Section & Background */
+.hero-section {
+    flex-grow: 1;
+    background-image: 
+        linear-gradient(to right, rgba(253, 251, 251, 0.85) 0%, rgba(253, 251, 251, 0.65) 45%, rgba(253, 251, 251, 0.15) 100%),
+        url('../assests/bg1.webp');
+    background-size: cover;
+    background-position: right center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Hero Content Styles */
+.hero-content {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    padding: 50px 10%;
+}
+
+.text-content {
+    max-width: 540px;
+}
+
+.greeting {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.heart-icon {
+    color: var(--text-highlight);
+    display: inline-block;
+    margin-left: 2px;
+}
+
+.main-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+    line-height: 1.08;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+    font-weight: 700;
+}
+
+.heading-highlight {
+    color: var(--text-highlight);
+    font-style: italic;
+    font-weight: 400;
+}
+
+.divider {
+    color: var(--text-highlight);
+    margin-bottom: 24px;
+    font-size: 1rem;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.description {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    font-weight: 400;
+}
+
+.btn-order {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-banner) 0%, var(--bg-banner-dark) 100%);
+    color: #ffffff;
+    padding: 16px 36px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-bottom: 45px;
+    box-shadow: 0 8px 24px rgba(154, 95, 106, 0.3);
+    transition: var(--transition);
+}
+
+.btn-order:hover {
+    background: linear-gradient(135deg, var(--bg-banner-dark) 0%, #6e3e47 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(154, 95, 106, 0.4);
+}
+
+.btn-order:active {
+    transform: translateY(-1px);
+}
+
+/* Mini Features below Button */
+.mini-features {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.mini-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.35;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(6px);
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(184, 91, 108, 0.12);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    transition: var(--transition);
+}
+
+.mini-feature:hover {
+    transform: translateY(-2px);
+    background: #ffffff;
+    border-color: rgba(184, 91, 108, 0.3);
+    box-shadow: 0 6px 20px rgba(184, 91, 108, 0.1);
+}
+
+.mini-feature svg,
+.feature-icon {
+    font-size: 1.35rem;
+    color: var(--text-highlight);
+    flex-shrink: 0;
+}
+
+/* Bottom Banner Footer */
+.bottom-banner {
+    background: linear-gradient(90deg, #9a5f6a 0%, #874e59 100%);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 24px 60px;
+    color: white;
+}
+
+.banner-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.35;
+    transition: var(--transition);
+}
+
+.banner-item:hover {
+    transform: translateY(-2px);
+}
+
+.banner-item svg,
+.banner-icon {
+    font-size: 1.85rem;
+    color: #ffffff;
+    flex-shrink: 0;
+    opacity: 0.95;
+}
+
+/* Responsive Styles for Index Page */
+@media (max-width: 1024px) {
+    .hero-content {
+        padding: 40px 6%;
+    }
+
+    .bottom-banner {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 24px 40px;
+        gap: 24px 20px;
+    }
+}
+
+@media (max-width: 868px) {
+    .hero-section {
+        background-image: 
+            linear-gradient(to bottom, rgba(253, 251, 251, 0.92) 0%, rgba(253, 251, 251, 0.85) 60%, rgba(253, 251, 251, 0.6) 100%),
+            url('../assests/bg1.webp');
+        background-position: center center;
+    }
+
+    .hero-content {
+        padding: 30px 24px;
+    }
+
+    .mini-features {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .mini-feature {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .bottom-banner {
+        grid-template-columns: 1fr;
+        padding: 20px 20px;
+        gap: 16px;
+    }
+
+    .banner-item {
+        justify-content: flex-start;
+        padding-left: 15%;
+    }
+
+    .btn-order {
+        width: 100%;
+        padding: 16px 20px;
+    }
+}
