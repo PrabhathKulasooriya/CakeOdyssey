@@ -232,6 +232,7 @@
     padding: 20px;
 }
 
+.modal-overlay:target,
 .modal-overlay.active {
     opacity: 1;
     visibility: visible;
@@ -251,6 +252,7 @@
     overflow-y: auto;
 }
 
+.modal-overlay:target .modal-card,
 .modal-overlay.active .modal-card {
     transform: translateY(0) scale(1);
 }

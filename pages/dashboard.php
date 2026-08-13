@@ -111,13 +111,11 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                 
                 <!-- Manage Cakes Table -->
                 <div class="dash-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(184, 91, 108, 0.12); flex-wrap: wrap; gap: 12px;">
-                        <h2 class="card-title" style="margin: 0; border: none; padding: 0;">
-                            <i class="fa-solid fa-list-check" style="color: #b85b6c;"></i> Manage All Cakes Menu
-                        </h2>
-                        <button type="button" class="btn-dash-action" onclick="openAddModal()">
-                            <i class="fa-solid fa-plus-circle"></i> Add New Cake to Menu
-                        </button>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h2 class="card-title" style="margin: 0; border: none; padding: 0;"><i class="fa-solid fa-cake-candles" style="color: #b85b6c;"></i> Cake Catalog Management</h2>
+                        <a href="#addCakeModal" class="btn-dash-action">
+                            <i class="fa-solid fa-plus-circle"></i> Add New Cake
+                        </a>
                     </div>
                     
                     <?php
@@ -153,10 +151,10 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                             <td><?php echo htmlspecialchars($c['size']); ?></td>
                                             <td>Rs. <?php echo number_format($c['base_price'], 2); ?></td>
                                             <td>
-                                                <button type="button" onclick='openEditModal(<?php echo json_encode($c, JSON_HEX_APOS | JSON_HEX_QUOT); ?>)' class="btn-dash-action btn-edit" style="padding: 6px 12px; font-size: 0.78rem;">
+                                                <a href="dashboard.php?edit_id=<?php echo $c['id']; ?>#editCakeModal" class="btn-dash-action btn-edit" style="padding: 6px 12px; font-size: 0.78rem; text-decoration: none;">
                                                     <i class="fa-solid fa-pen"></i> Edit
-                                                </button>
-                                                <a href="../controllers/admin_cake.php?action=delete&id=<?php echo $c['id']; ?>" onclick="return confirm('Are you sure you want to delete this cake?');" class="btn-dash-action btn-delete" style="padding: 6px 12px; font-size: 0.78rem;">
+                                                </a>
+                                                <a href="../controllers/admin_cake.php?action=delete&id=<?php echo $c['id']; ?>" onclick="return confirm('Are you sure you want to delete this cake?');" class="btn-dash-action btn-delete" style="padding: 6px 12px; font-size: 0.78rem; text-decoration: none;">
                                                     <i class="fa-solid fa-trash"></i> Delete
                                                 </a>
                                             </td>
@@ -294,12 +292,12 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
     </div>
 
     <?php if ($user_role === 'admin'): ?>
-        <!-- ADD CAKE MODAL -->
+        <!-- ADD CAKE MODAL (Pure CSS :target) -->
         <div id="addCakeModal" class="modal-overlay">
             <div class="modal-card">
                 <div class="modal-header">
                     <h2 class="modal-title"><i class="fa-solid fa-plus-circle" style="color: #b85b6c;"></i> Add New Cake to Menu</h2>
-                    <button type="button" class="btn-close-modal" onclick="closeAddModal()">&times;</button>
+                    <a href="dashboard.php" class="btn-close-modal" style="text-decoration: none;">&times;</a>
                 </div>
                 <form action="../controllers/admin_cake.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="add">
@@ -324,7 +322,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Base Price (Rs.) *</label>
-                                <input type="number" step="0.01" name="base_price" class="form-control-dash" placeholder="45.00" required>
+                                <input type="number" step="0.01" name="base_price" class="form-control-dash" placeholder="4500.00" required>
                             </div>
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Upload Image (Saved to assests/cake)</label>
@@ -336,7 +334,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                             <input type="text" name="description" class="form-control-dash" placeholder="Brief description of ingredients and flavors">
                         </div>
                         <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
-                            <button type="button" class="btn-dash-action" style="background: #718096;" onclick="closeAddModal()">Cancel</button>
+                            <a href="dashboard.php" class="btn-dash-action" style="background: #718096; text-decoration: none;">Cancel</a>
                             <button type="submit" class="btn-dash-action"><i class="fa-solid fa-plus"></i> Add Cake</button>
                         </div>
                     </div>
@@ -344,38 +342,38 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
             </div>
         </div>
 
-        <!-- EDIT CAKE MODAL -->
+        <!-- EDIT CAKE MODAL (Pure CSS :target + PHP Pre-fill) -->
         <div id="editCakeModal" class="modal-overlay <?php echo $editCake ? 'active' : ''; ?>">
             <div class="modal-card">
                 <div class="modal-header">
                     <h2 class="modal-title"><i class="fa-solid fa-pen-to-square" style="color: #b85b6c;"></i> Edit Cake Details</h2>
-                    <button type="button" class="btn-close-modal" onclick="closeEditModal()">&times;</button>
+                    <a href="dashboard.php" class="btn-close-modal" style="text-decoration: none;">&times;</a>
                 </div>
                 <form action="../controllers/admin_cake.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="edit">
-                    <input type="hidden" name="id" id="edit_id" value="<?php echo $editCake['id'] ?? ''; ?>">
+                    <input type="hidden" name="id" value="<?php echo $editCake['id'] ?? ''; ?>">
                     <div style="display: flex; flex-direction: column; gap: 14px;">
                         <div>
                             <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Cake Name *</label>
-                            <input type="text" name="name" id="edit_name" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['name'] ?? ''); ?>" required>
+                            <input type="text" name="name" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['name'] ?? ''); ?>" required>
                         </div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Type *</label>
-                                <select name="cake_type" id="edit_cake_type" class="form-control-dash">
+                                <select name="cake_type" class="form-control-dash">
                                     <option value="kilo" <?php echo (($editCake['cake_type'] ?? '') === 'kilo') ? 'selected' : ''; ?>>Kilo Cake</option>
                                     <option value="custom" <?php echo (($editCake['cake_type'] ?? '') === 'custom') ? 'selected' : ''; ?>>Custom Design</option>
                                 </select>
                             </div>
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Size / Portion *</label>
-                                <input type="text" name="size" id="edit_size" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['size'] ?? ''); ?>" required>
+                                <input type="text" name="size" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['size'] ?? ''); ?>" required>
                             </div>
                         </div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Base Price (Rs.) *</label>
-                                <input type="number" step="0.01" name="base_price" id="edit_base_price" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['base_price'] ?? ''); ?>" required>
+                                <input type="number" step="0.01" name="base_price" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['base_price'] ?? ''); ?>" required>
                             </div>
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Change Image (Optional)</label>
@@ -384,44 +382,16 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                         </div>
                         <div>
                             <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Description</label>
-                            <input type="text" name="description" id="edit_description" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['description'] ?? ''); ?>">
+                            <input type="text" name="description" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['description'] ?? ''); ?>">
                         </div>
                         <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
-                            <button type="button" class="btn-dash-action" style="background: #718096;" onclick="closeEditModal()">Cancel</button>
+                            <a href="dashboard.php" class="btn-dash-action" style="background: #718096; text-decoration: none;">Cancel</a>
                             <button type="submit" class="btn-dash-action"><i class="fa-solid fa-pen-to-square"></i> Save Changes</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-
-        <script>
-            function openAddModal() {
-                document.getElementById('addCakeModal').classList.add('active');
-            }
-            function closeAddModal() {
-                document.getElementById('addCakeModal').classList.remove('active');
-            }
-            function openEditModal(cake) {
-                document.getElementById('edit_id').value = cake.id;
-                document.getElementById('edit_name').value = cake.name;
-                document.getElementById('edit_cake_type').value = cake.cake_type;
-                document.getElementById('edit_size').value = cake.size;
-                document.getElementById('edit_base_price').value = cake.base_price;
-                document.getElementById('edit_description').value = cake.description || '';
-                document.getElementById('editCakeModal').classList.add('active');
-            }
-            function closeEditModal() {
-                document.getElementById('editCakeModal').classList.remove('active');
-            }
-
-            window.onclick = function(e) {
-                var addModal = document.getElementById('addCakeModal');
-                var editModal = document.getElementById('editCakeModal');
-                if (e.target === addModal) closeAddModal();
-                if (e.target === editModal) closeEditModal();
-            };
-        </script>
     <?php endif; ?>
 
 </body>
