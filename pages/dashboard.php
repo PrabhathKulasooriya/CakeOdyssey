@@ -187,7 +187,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                             <table class="order-table">
                                 <thead>
                                     <tr>
-                                        <th>Order #</th>
+                                        <th>Order</th>
                                         <th>Customer</th>
                                         <th>Mobile</th>
                                         <th>Address</th>
@@ -200,7 +200,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                 <tbody>
                                     <?php while ($ord = mysqli_fetch_assoc($adminOrders)): ?>
                                         <tr>
-                                            <td><strong>#<?php echo $ord['id']; ?></strong></td>
+                                            <td><strong><?php echo $ord['id']; ?></strong></td>
                                             <td><?php echo htmlspecialchars($ord['customer_name']); ?></td>
                                             <td><?php echo htmlspecialchars($ord['mobile_number']); ?></td>
                                             <td><?php echo htmlspecialchars($ord['customer_address']); ?></td>
@@ -255,7 +255,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                             <table class="order-table">
                                 <thead>
                                     <tr>
-                                        <th>Order #</th>
+                                        <th>Order</th>
                                         <th>Due Date</th>
                                         <th>Total Amount</th>
                                         <th>Status</th>
@@ -265,7 +265,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                 <tbody>
                                     <?php while ($ord = mysqli_fetch_assoc($userOrders)): ?>
                                         <tr>
-                                            <td><strong>#<?php echo $ord['id']; ?></strong></td>
+                                            <td><strong><?php echo $ord['id']; ?></strong></td>
                                             <td>
                                                 <div style="font-weight: 700; color: #b85b6c; font-size: 0.88rem;">
                                                     <i class="fa-solid fa-calendar-day"></i> <?php echo !empty($ord['due_date']) ? date('M d, Y', strtotime($ord['due_date'])) : 'N/A'; ?>
