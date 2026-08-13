@@ -175,7 +175,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                     <h2 class="card-title"><i class="fa-solid fa-boxes-packing" style="color: #b85b6c;"></i> All Customer Orders</h2>
                     
                     <?php
-                    $adminOrdersSql = "SELECT o.*, u.name as customer_name, u.mobile_number 
+                    $adminOrdersSql = "SELECT o.*, u.name as customer_name, u.mobile_number, u.address as customer_address 
                                        FROM orders o 
                                        JOIN users u ON o.user_id = u.id 
                                        ORDER BY o.id DESC";
@@ -190,7 +190,8 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                         <th>Order #</th>
                                         <th>Customer</th>
                                         <th>Mobile</th>
-                                        <th>Date</th>
+                                        <th>Address</th>
+                                        <th>Due Date</th>
                                         <th>Total</th>
                                         <th>Status</th>
                                         <th>Items Ordered</th>
@@ -202,7 +203,15 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                             <td><strong>#<?php echo $ord['id']; ?></strong></td>
                                             <td><?php echo htmlspecialchars($ord['customer_name']); ?></td>
                                             <td><?php echo htmlspecialchars($ord['mobile_number']); ?></td>
-                                            <td><?php echo date('M d, Y H:i', strtotime($ord['created_at'])); ?></td>
+                                            <td><?php echo htmlspecialchars($ord['customer_address']); ?></td>
+                                            <td>
+                                                <div style="font-weight: 700; color: #b85b6c; font-size: 0.85rem;">
+                                                    <?php echo !empty($ord['due_date']) ? date('M d, Y', strtotime($ord['due_date'])) : 'N/A'; ?>
+                                                </div>
+                                                <div style="font-size: 0.75rem; color: #6b5350;">
+                                                    Placed: <?php echo date('M d, Y', strtotime($ord['created_at'])); ?>
+                                                </div>
+                                            </td>
                                             <td><strong style="color: #b85b6c;">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
                                             <td>
                                                 <span class="status-badge status-<?php echo strtolower($ord['status']); ?>">
@@ -247,7 +256,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                 <thead>
                                     <tr>
                                         <th>Order #</th>
-                                        <th>Date</th>
+                                        <th>Due Date</th>
                                         <th>Total Amount</th>
                                         <th>Status</th>
                                         <th>Items Included</th>
@@ -257,7 +266,14 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                     <?php while ($ord = mysqli_fetch_assoc($userOrders)): ?>
                                         <tr>
                                             <td><strong>#<?php echo $ord['id']; ?></strong></td>
-                                            <td><?php echo date('M d, Y - h:i A', strtotime($ord['created_at'])); ?></td>
+                                            <td>
+                                                <div style="font-weight: 700; color: #b85b6c; font-size: 0.88rem;">
+                                                    <i class="fa-solid fa-calendar-day"></i> <?php echo !empty($ord['due_date']) ? date('M d, Y', strtotime($ord['due_date'])) : 'N/A'; ?>
+                                                </div>
+                                                <div style="font-size: 0.75rem; color: #6b5350;">
+                                                    Placed: <?php echo date('M d, Y - h:i A', strtotime($ord['created_at'])); ?>
+                                                </div>
+                                            </td>
                                             <td><strong style="color: #b85b6c;">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
                                             <td>
                                                 <span class="status-badge status-<?php echo strtolower($ord['status']); ?>">

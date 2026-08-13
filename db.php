@@ -75,11 +75,18 @@ $sql_orders = "CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
+    due_date DATE NULL,
     status ENUM('pending', 'paid', 'completed') DEFAULT 'pending' NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 )";
 @mysqli_query($conn, $sql_orders);
+
+// Auto-migrate: Add due_date column if missing from existing orders table
+$checkCol = @mysqli_query($conn, "SHOW COLUMNS FROM orders LIKE 'due_date'");
+if ($checkCol && mysqli_num_rows($checkCol) == 0) {
+    @mysqli_query($conn, "ALTER TABLE orders ADD COLUMN due_date DATE NULL AFTER total_amount");
+}
 
 // 5. Order Items Table
 $sql_order_items = "CREATE TABLE IF NOT EXISTS order_items (

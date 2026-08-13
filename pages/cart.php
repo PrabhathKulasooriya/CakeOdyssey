@@ -167,8 +167,15 @@ $cart_count = 0;
                         <span style="color: #b85b6c;">Rs. <?php echo number_format($total_amount, 2); ?></span>
                     </div>
 
-                    <!-- Confirm Cart & Order Button -->
-                    <form action="../controllers/order_confirm.php" method="POST">
+                    <!-- Confirm Cart & Order Form with Required Due Date -->
+                    <form action="../controllers/order_confirm.php" method="POST" style="margin-top: 18px;">
+                        <div style="margin-bottom: 16px; text-align: left;">
+                            <label style="font-size: 0.82rem; font-weight: 700; color: #2d1e1c; display: block; margin-bottom: 6px;">
+                                <i class="fa-solid fa-calendar-day" style="color: #b85b6c;"></i> Select Required Due Date *
+                            </label>
+                            <input type="date" name="due_date" min="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" required style="width: 100%; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(184, 91, 108, 0.3); font-family: inherit; font-size: 0.9rem; color: #2d1e1c; background: #ffffff; outline: none;">
+                        </div>
+
                         <button type="submit" class="btn-confirm-order">
                             <i class="fa-solid fa-check-circle"></i> Confirm Cart & Place Order
                         </button>

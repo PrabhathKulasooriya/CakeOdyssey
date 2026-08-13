@@ -1,5 +1,5 @@
 <?php
-// Controller: Confirm Cart & Place Order
+// Controller: Confirm Cart & Place Order (with Due Date)
 session_start();
 require_once __DIR__ . '/../db.php';
 
@@ -8,7 +8,12 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$user_id = (int)$_SESSION['user_id'];
+$user_id  = (int)$_SESSION['user_id'];
+$due_date = trim($_POST['due_date'] ?? '');
+
+if (empty($due_date)) {
+    $due_date = date('Y-m-d', strtotime('+1 day'));
+}
 
 // Fetch cart items for current user
 $sql = "SELECT c.*, k.base_price 
@@ -31,8 +36,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $items[] = $row;
 }
 
-// Create Order record in database
-$insertOrderSql = "INSERT INTO orders (user_id, total_amount, status) VALUES ($user_id, $total_amount, 'pending')";
+// Create Order record in database with due_date
+$insertOrderSql = "INSERT INTO orders (user_id, total_amount, due_date, status) VALUES ($user_id, $total_amount, '$due_date', 'pending')";
 
 if (mysqli_query($conn, $insertOrderSql)) {
     $order_id = mysqli_insert_id($conn);
@@ -40,9 +45,9 @@ if (mysqli_query($conn, $insertOrderSql)) {
     // Insert each order item
     foreach ($items as $item) {
         $cake_id = (int)$item['cake_id'];
-        $qty = (int)$item['quantity'];
-        $weight = (float)$item['weight_kg'];
-        $price = (float)$item['base_price'];
+        $qty     = (int)$item['quantity'];
+        $weight  = (float)$item['weight_kg'];
+        $price   = (float)$item['base_price'];
 
         $insertItemSql = "INSERT INTO order_items (order_id, cake_id, quantity, weight_kg, price_locked) 
                           VALUES ($order_id, $cake_id, $qty, $weight, $price)";
@@ -52,7 +57,7 @@ if (mysqli_query($conn, $insertOrderSql)) {
     // Clear cart items for this user
     mysqli_query($conn, "DELETE FROM cart_items WHERE user_id = $user_id");
 
-    header("Location: ../pages/dashboard.php?success=" . urlencode("Order #$order_id placed successfully! Thank you for ordering with Cake Odyssey."));
+    header("Location: ../pages/dashboard.php?success=" . urlencode("Order #$order_id placed successfully! Due Date: " . date('M d, Y', strtotime($due_date))));
     exit();
 } else {
     header("Location: ../pages/cart.php?error=" . urlencode("Failed to place order: " . mysqli_error($conn)));
