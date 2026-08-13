@@ -419,9 +419,15 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                             <input type="text" name="address" class="form-control-dash" value="<?php echo htmlspecialchars($userProfile['address'] ?? ''); ?>" required>
                         </div>
                     </div>
-                    <div>
-                        <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">New Password (Optional)</label>
-                        <input type="password" name="new_password" class="form-control-dash" placeholder="Leave blank to keep current password">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div>
+                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">New Password (Optional)</label>
+                            <input type="password" name="new_password" class="form-control-dash" placeholder="New Password">
+                        </div>
+                        <div>
+                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">Confirm New Password</label>
+                            <input type="password" name="confirm_password" class="form-control-dash" placeholder="Confirm New Password">
+                        </div>
                     </div>
                     <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
                         <a href="dashboard.php" class="btn-dash-action" style="background: #718096; text-decoration: none;">Cancel</a>

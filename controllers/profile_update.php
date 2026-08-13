@@ -1,5 +1,5 @@
 <?php
-// Controller: Update User Account Details
+// Controller: Update User Account Details (with Password Confirmation)
 session_start();
 require_once __DIR__ . '/../db.php';
 
@@ -8,15 +8,24 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$user_id       = (int)$_SESSION['user_id'];
-$name          = trim($_POST['name'] ?? '');
-$mobile_number = trim($_POST['mobile_number'] ?? '');
-$address       = trim($_POST['address'] ?? '');
-$new_password  = trim($_POST['new_password'] ?? '');
+$user_id          = (int)$_SESSION['user_id'];
+$name             = trim($_POST['name'] ?? '');
+$mobile_number    = trim($_POST['mobile_number'] ?? '');
+$address          = trim($_POST['address'] ?? '');
+$new_password     = trim($_POST['new_password'] ?? '');
+$confirm_password = trim($_POST['confirm_password'] ?? '');
 
 if (empty($name) || empty($mobile_number) || empty($address)) {
     header("Location: ../pages/dashboard.php?error=" . urlencode("Name, mobile number, and address are required."));
     exit();
+}
+
+// Check password match if changing password
+if (!empty($new_password)) {
+    if ($new_password !== $confirm_password) {
+        header("Location: ../pages/dashboard.php?error=" . urlencode("New password and confirm password do not match."));
+        exit();
+    }
 }
 
 // Check if mobile number belongs to another user
