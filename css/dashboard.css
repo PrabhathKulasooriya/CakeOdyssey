@@ -149,6 +149,13 @@
 .status-completed { background: #e9d8fd; color: #44337a; }
 
 /* Admin Forms & Tables */
+
+.modal-card *,
+.modal-card *::before,
+.modal-card *::after {
+    box-sizing: border-box;
+}
+
 .admin-form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -164,6 +171,7 @@
     font-family: inherit;
     font-size: 0.9rem;
     outline: none;
+    box-sizing: border-box;  
 }
 
 .btn-dash-action {

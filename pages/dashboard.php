@@ -59,12 +59,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                     <h1 class="dash-title">Welcome, <?php echo htmlspecialchars($user_name); ?>!</h1>
                     <p style="color: #6b5350;">Manage your account details and view your orders</p>
                 </div>
-                <div>
-                    <span class="dash-role-badge <?php echo ($user_role === 'admin') ? 'admin' : ''; ?>">
-                        <i class="fa-solid <?php echo ($user_role === 'admin') ? 'fa-shield-halved' : 'fa-user'; ?>"></i>
-                        Account Role: <?php echo ucfirst($user_role); ?>
-                    </span>
-                </div>
+                
             </div>
 
             <?php if (!empty($success_message)): ?>
@@ -83,7 +78,14 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
 
             <!-- Profile Information -->
             <div class="dash-card">
-                <h2 class="card-title"><i class="fa-solid fa-id-card" style="color: #b85b6c;"></i> Profile Information</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(184, 91, 108, 0.12); flex-wrap: wrap; gap: 12px;">
+                    <h2 class="card-title" style="margin: 0; border: none; padding: 0;">
+                        <i class="fa-solid fa-id-card" style="color: #b85b6c;"></i> Profile Information
+                    </h2>
+                    <a href="#editProfileModal" class="btn-dash-action" style="padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
+                        <i class="fa-solid fa-user-pen"></i> Edit Account Details
+                    </a>
+                </div>
                 <div class="profile-grid">
                     <div class="profile-item">
                         <div class="profile-label">Full Name</div>
@@ -201,7 +203,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                             <td><?php echo htmlspecialchars($ord['customer_name']); ?></td>
                                             <td><?php echo htmlspecialchars($ord['mobile_number']); ?></td>
                                             <td><?php echo date('M d, Y H:i', strtotime($ord['created_at'])); ?></td>
-                                            <td><strong style="color: #b85b6c;">Rs. <?php echo number_format($ord['total_amount'], 2); ?></strong></td>
+                                            <td><strong style="color: #b85b6c;">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
                                             <td>
                                                 <span class="status-badge status-<?php echo strtolower($ord['status']); ?>">
                                                     <?php echo ucfirst($ord['status']); ?>
@@ -256,7 +258,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                         <tr>
                                             <td><strong>#<?php echo $ord['id']; ?></strong></td>
                                             <td><?php echo date('M d, Y - h:i A', strtotime($ord['created_at'])); ?></td>
-                                            <td><strong style="color: #b85b6c;">Rs. <?php echo number_format($ord['total_amount'], 2); ?></strong></td>
+                                            <td><strong style="color: #b85b6c;">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
                                             <td>
                                                 <span class="status-badge status-<?php echo strtolower($ord['status']); ?>">
                                                     <?php echo ucfirst($ord['status']); ?>
@@ -322,7 +324,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Base Price (Rs.) *</label>
-                                <input type="number" step="0.01" name="base_price" class="form-control-dash" placeholder="4500.00" required>
+                                <input type="number" step="100" name="base_price" class="form-control-dash" placeholder="4500" required>
                             </div>
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Upload Image (Saved to assests/cake)</label>
@@ -373,7 +375,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Base Price (Rs.) *</label>
-                                <input type="number" step="0.01" name="base_price" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['base_price'] ?? ''); ?>" required>
+                                <input type="number" step="100" name="base_price" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['base_price'] ?? ''); ?>" required>
                             </div>
                             <div>
                                 <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Change Image (Optional)</label>
@@ -393,6 +395,42 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
             </div>
         </div>
     <?php endif; ?>
+
+    <!-- EDIT PROFILE MODAL (Pure CSS :target) -->
+    <div id="editProfileModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-user-pen" style="color: #b85b6c;"></i> Update Account Details</h2>
+                <a href="dashboard.php" class="btn-close-modal" style="text-decoration: none;">&times;</a>
+            </div>
+            <form action="../controllers/profile_update.php" method="POST">
+                <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <div>
+                        <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">Full Name *</label>
+                        <input type="text" name="name" class="form-control-dash" value="<?php echo htmlspecialchars($userProfile['name'] ?? $user_name); ?>" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div>
+                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">Mobile Number *</label>
+                            <input type="text" name="mobile_number" class="form-control-dash" value="<?php echo htmlspecialchars($userProfile['mobile_number'] ?? ''); ?>" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">Delivery Address *</label>
+                            <input type="text" name="address" class="form-control-dash" value="<?php echo htmlspecialchars($userProfile['address'] ?? ''); ?>" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">New Password (Optional)</label>
+                        <input type="password" name="new_password" class="form-control-dash" placeholder="Leave blank to keep current password">
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
+                        <a href="dashboard.php" class="btn-dash-action" style="background: #718096; text-decoration: none;">Cancel</a>
+                        <button type="submit" class="btn-dash-action"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>
