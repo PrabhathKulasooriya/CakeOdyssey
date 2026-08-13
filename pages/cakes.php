@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Cakes - Cake Odyssey</title>
     <!-- Local Fonts & Icons -->
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/cakes.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/cakes.css">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     <div class="cakes-page-hero">
         
         <!-- Include Navbar Module -->
-        <?php include 'navbar.php'; ?>
+        <?php include __DIR__ . '/../navbar.php'; ?>
 
         <!-- Hero Header -->
         <header class="cakes-header">

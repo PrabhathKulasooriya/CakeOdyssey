@@ -36,7 +36,7 @@
                     we bake moments that stay with you.
                 </p>
                 
-                <a href="cakes.php" class="btn-order">ORDER YOUR CAKE</a>
+                <a href="pages/cakes.php" class="btn-order">ORDER YOUR CAKE</a>
 
                 <div class="mini-features">
                     <div class="mini-feature">

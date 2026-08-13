@@ -1,3 +1,16 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['user_id'])) {
+    header('Location: ../index.php');
+    exit();
+}
+
+$error_message = $_GET['error'] ?? '';
+$success_message = $_GET['success'] ?? '';
+$mobile = $_GET['mobile'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,16 +18,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Cake Odyssey</title>
     <!-- Local Fonts & Icons -->
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/auth.css">
 </head>
 <body>
 
     <div class="auth-page-container">
         <!-- Include Navbar Module -->
-        <?php include 'navbar.php'; ?>
+        <?php include __DIR__ . '/../navbar.php'; ?>
 
         <main class="auth-main">
             <div class="auth-card">
@@ -27,8 +40,22 @@
                     <p class="auth-subtitle">Login to manage your cake orders & custom requests</p>
                 </div>
 
+                <?php if (!empty($error_message)): ?>
+                    <div class="alert-error" style="margin-bottom: 20px;">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span><?php echo htmlspecialchars($error_message); ?></span>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($success_message)): ?>
+                    <div class="alert-success" style="background: #e6fffa; border: 1px solid #b2f5ea; color: #234e52; padding: 12px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                        <i class="fa-solid fa-circle-check" style="color: #319795; font-size: 1.1rem;"></i>
+                        <span><?php echo htmlspecialchars($success_message); ?></span>
+                    </div>
+                <?php endif; ?>
+
                 <!-- Login Form -->
-                <form action="#" method="POST" class="auth-form">
+                <form action="../controllers/login.php" method="POST" class="auth-form">
                     
                     <!-- Mobile Number -->
                     <div class="form-group">
@@ -46,6 +73,7 @@
                                 pattern="07[0-9]{8}"
                                 title="Mobile number must start with 07 and be 10 digits long"
                                 maxlength="10"
+                                value="<?php echo htmlspecialchars($mobile); ?>"
                                 required
                             >
                         </div>
