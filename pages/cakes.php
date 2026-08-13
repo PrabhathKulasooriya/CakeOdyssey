@@ -34,166 +34,99 @@
             </div>
         </header>
 
-        <!-- Category Filters -->
-        <!-- <div class="category-filter-container">
-            <button class="filter-btn active"><i class="fa-solid fa-layer-group"></i> All Cakes</button>
-            <button class="filter-btn"><i class="fa-solid fa-cake-candles"></i> Birthday Specials</button>
-            <button class="filter-btn"><i class="fa-solid fa-cookie-bite"></i> Chocolate</button>
-            <button class="filter-btn"><i class="fa-solid fa-lemon"></i> Fruit Delights</button>
-            <button class="filter-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Custom Designs</button>
-        </div> -->
+        <!-- Category Filters / Success Alert -->
+        <?php if (!empty($_GET['success'])): ?>
+            <div style="max-width: 650px; margin: 0 auto 20px; background: #e6fffa; border: 1px solid #b2f5ea; color: #234e52; padding: 14px 20px; border-radius: 30px; text-align: center; font-weight: 600; font-size: 0.92rem; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
+                <i class="fa-solid fa-circle-check" style="color: #319795; font-size: 1.1rem;"></i>
+                <span><?php echo htmlspecialchars($_GET['success']); ?></span>
+            </div>
+        <?php endif; ?>
 
         <!-- Cakes Grid Container -->
         <main class="cakes-container">
             <div class="cakes-grid">
                 
-                <!-- Cake Card 1 -->
-                <div class="cake-card">
-                    <div class="cake-badge bestseller">Bestseller</div>
-                    <button class="wishlist-btn" aria-label="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <div class="cake-img-box">
-                        <i class="fa-solid fa-cake-candles cake-placeholder-icon"></i>
-                    </div>
-                    <div class="cake-details">
-                        <div class="cake-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <span>(5.0 / 128)</span>
-                        </div>
-                        <h3 class="cake-title">Velvet Berry Delight</h3>
-                        <p class="cake-desc">Red velvet layers with organic cream cheese frosting and fresh berries.</p>
-                        <div class="cake-footer">
-                            <div class="cake-price">$45.00</div>
-                            <button class="btn-add-cart"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
+                <?php 
+                
+                $userCart = [];
+                if (isset($_SESSION['user_id'])) {
+                    $uid = (int)$_SESSION['user_id'];
+                    $cartRes = mysqli_query($conn, "SELECT id, cake_id, quantity FROM cart_items WHERE user_id = $uid");
+                    if ($cartRes) {
+                        while ($cRow = mysqli_fetch_assoc($cartRes)) {
+                            $userCart[$cRow['cake_id']] = $cRow;
+                        }
+                    }
+                }
 
-                <!-- Cake Card 2 -->
-                <div class="cake-card">
-                    <div class="cake-badge specialty">Chef's Choice</div>
-                    <button class="wishlist-btn" aria-label="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <div class="cake-img-box">
-                        <i class="fa-solid fa-cookie-bite cake-placeholder-icon"></i>
-                    </div>
-                    <div class="cake-details">
-                        <div class="cake-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star-half-stroke"></i>
-                            <span>(4.9 / 95)</span>
+                $cakesQuery = "SELECT * FROM cakes ORDER BY id ASC";
+                $cakesResult = mysqli_query($conn, $cakesQuery);
+                
+                if ($cakesResult && mysqli_num_rows($cakesResult) > 0):
+                    while ($cake = mysqli_fetch_assoc($cakesResult)):
+                        $cakeId = $cake['id'];
+                        $isIcon = !empty($cake['image']) && strpos($cake['image'], 'fa-') === 0;
+                        $isKilo = ($cake['cake_type'] === 'kilo');
+                        
+                        $inCart = isset($userCart[$cakeId]);
+                        $cartQty = $inCart ? (int)$userCart[$cakeId]['quantity'] : 0;
+                        $cartItemId = $inCart ? (int)$userCart[$cakeId]['id'] : 0;
+                ?>
+                    <!-- Cake Card -->
+                    <div class="cake-card">
+                        <div class="cake-badge bestseller"><?php echo ucfirst(htmlspecialchars($cake['cake_type'])); ?> - <?php echo htmlspecialchars($cake['size']); ?></div>
+                        
+                        <div class="cake-img-box">
+                            <?php if ($isIcon): ?>
+                                <i class="fa-solid <?php echo htmlspecialchars($cake['image']); ?> cake-placeholder-icon"></i>
+                            <?php else: ?>
+                                <img src="../assests/cake/<?php echo htmlspecialchars($cake['image']); ?>" alt="<?php echo htmlspecialchars($cake['name']); ?>" style="width: 100%; height: 100%; object-fit: cover; border-top-left-radius: inherit; border-top-right-radius: inherit;">
+                            <?php endif; ?>
                         </div>
-                        <h3 class="cake-title">Royal Chocolate Truffle</h3>
-                        <p class="cake-desc">Decadent dark chocolate ganache cake infused with espresso caramel.</p>
-                        <div class="cake-footer">
-                            <div class="cake-price">$52.00</div>
-                            <button class="btn-add-cart"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Cake Card 3 -->
-                <div class="cake-card">
-                    <button class="wishlist-btn" aria-label="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <div class="cake-img-box">
-                        <i class="fa-solid fa-wand-magic-sparkles cake-placeholder-icon"></i>
-                    </div>
-                    <div class="cake-details">
-                        <div class="cake-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <span>(4.8 / 64)</span>
-                        </div>
-                        <h3 class="cake-title">Vanilla Bean Mousse</h3>
-                        <p class="cake-desc">Madagascar vanilla sponge layered with light white chocolate mousse.</p>
-                        <div class="cake-footer">
-                            <div class="cake-price">$38.00</div>
-                            <button class="btn-add-cart"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
+                        <div class="cake-details">
+                            <div class="cake-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>(5.0)</span>
+                            </div>
+                            <h3 class="cake-title"><?php echo htmlspecialchars($cake['name']); ?></h3>
+                            <p class="cake-desc"><?php echo htmlspecialchars($cake['description']); ?></p>
+                            
+                            <div class="cake-footer">
+                                <div class="cake-price">
+                                    Rs. <?php echo number_format($cake['base_price'], 2); ?>
+                                    <?php if ($isKilo): ?><span style="font-size: 0.75rem; color: #6b5350; font-weight: normal;"> / KG</span><?php endif; ?>
+                                </div>
 
-                <!-- Cake Card 4 -->
-                <div class="cake-card">
-                    <div class="cake-badge new">New</div>
-                    <button class="wishlist-btn" aria-label="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <div class="cake-img-box">
-                        <i class="fa-solid fa-lemon cake-placeholder-icon"></i>
-                    </div>
-                    <div class="cake-details">
-                        <div class="cake-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <span>(4.9 / 82)</span>
-                        </div>
-                        <h3 class="cake-title">Mango Passionfruit Mousse</h3>
-                        <p class="cake-desc">Tropical mango puree layers paired with tangy passionfruit curd.</p>
-                        <div class="cake-footer">
-                            <div class="cake-price">$48.00</div>
-                            <button class="btn-add-cart"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
+                                <!-- Plus / Minus Control at Add to Cart Button Position -->
+                                <?php if ($cartQty == 0): ?>
+                                    <a href="../controllers/cart_add.php?cake_id=<?php echo $cakeId; ?>&quantity=1" class="btn-add-cart" style="text-decoration: none;">
+                                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                                    </a>
+                                <?php else: ?>
+                                    <div class="cake-footer-qty-control">
+                                        <a href="../controllers/cart_remove.php?id=<?php echo $cartItemId; ?>&action=decrease&redirect=cakes" class="btn-qty-footer btn-minus" title="Reduce Quantity">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </a>
+                                        <span class="qty-footer-val"><?php echo $cartQty; ?><?php echo $isKilo ? ' KG' : ''; ?></span>
+                                        <a href="../controllers/cart_add.php?cake_id=<?php echo $cakeId; ?>&quantity=1" class="btn-qty-footer btn-plus" title="Add More">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Cake Card 5 -->
-                <div class="cake-card">
-                    <div class="cake-badge bestseller">Bestseller</div>
-                    <button class="wishlist-btn" aria-label="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <div class="cake-img-box">
-                        <i class="fa-solid fa-gift cake-placeholder-icon"></i>
-                    </div>
-                    <div class="cake-details">
-                        <div class="cake-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <span>(5.0 / 110)</span>
-                        </div>
-                        <h3 class="cake-title">Hazelnut Praline Dream</h3>
-                        <p class="cake-desc">Crunchy hazelnut praline with Belgian milk chocolate sponge layers.</p>
-                        <div class="cake-footer">
-                            <div class="cake-price">$55.00</div>
-                            <button class="btn-add-cart"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cake Card 6 -->
-                <div class="cake-card">
-                    <button class="wishlist-btn" aria-label="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
-                    <div class="cake-img-box">
-                        <i class="fa-solid fa-heart cake-placeholder-icon"></i>
-                    </div>
-                    <div class="cake-details">
-                        <div class="cake-rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star-half-stroke"></i>
-                            <span>(4.9 / 76)</span>
-                        </div>
-                        <h3 class="cake-title">Strawberry Shortcake Supreme</h3>
-                        <p class="cake-desc">Fluffy Japanese sponge filled with fresh farm strawberries & sweet cream.</p>
-                        <div class="cake-footer">
-                            <div class="cake-price">$42.00</div>
-                            <button class="btn-add-cart"><i class="fa-solid fa-cart-shopping"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
+                <?php 
+                    endwhile;
+                else: 
+                ?>
+                    <p style="grid-column: 1 / -1; text-align: center; color: #6b5350; padding: 40px;">No cakes available at the moment.</p>
+                <?php endif; ?>
 
             </div>
         </main>
