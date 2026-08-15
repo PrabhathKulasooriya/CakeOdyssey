@@ -41,15 +41,15 @@ $mobile = $_GET['mobile'] ?? '';
                 </div>
 
                 <?php if (!empty($error_message)): ?>
-                    <div class="alert-error" style="margin-bottom: 20px;">
+                    <div class="alert-error">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <span><?php echo htmlspecialchars($error_message); ?></span>
                     </div>
                 <?php endif; ?>
 
                 <?php if (!empty($success_message)): ?>
-                    <div class="alert-success" style="background: #e6fffa; border: 1px solid #b2f5ea; color: #234e52; padding: 12px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                        <i class="fa-solid fa-circle-check" style="color: #319795; font-size: 1.1rem;"></i>
+                    <div class="alert-success">
+                        <i class="fa-solid fa-circle-check"></i>
                         <span><?php echo htmlspecialchars($success_message); ?></span>
                     </div>
                 <?php endif; ?>

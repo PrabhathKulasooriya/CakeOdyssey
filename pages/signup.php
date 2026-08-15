@@ -44,16 +44,16 @@ $mobile = $_GET['mobile'] ?? '';
                 </div>
 
                 <?php if (!empty($error_message)): ?>
-                    <div class="alert-error" style="margin-bottom: 20px;">
+                    <div class="alert-error">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <span><?php echo htmlspecialchars($error_message); ?></span>
                     </div>
                 <?php endif; ?>
 
                 <?php if (!empty($success_message)): ?>
-                    <div class="alert-success" style="background: #e6fffa; border: 1px solid #b2f5ea; color: #234e52; padding: 12px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-                        <i class="fa-solid fa-circle-check" style="color: #319795; font-size: 1.1rem;"></i>
-                        <span><?php echo htmlspecialchars($success_message); ?> <a href="login.php" style="color: #2b6cb0; text-decoration: underline; font-weight: 600;">Click here to Log In</a></span>
+                    <div class="alert-success">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><?php echo htmlspecialchars($success_message); ?> <a href="login.php" class="alert-link">Click here to Log In</a></span>
                     </div>
                 <?php endif; ?>
 
@@ -85,7 +85,7 @@ $mobile = $_GET['mobile'] ?? '';
                             Delivery Address <span class="required">*</span>
                         </label>
                         <div class="input-wrapper">
-                            <i class="fa-solid fa-location-dot input-icon" style="top: 14px;"></i>
+                            <i class="fa-solid fa-location-dot input-icon input-icon-top"></i>
                             <textarea 
                                 id="address" 
                                 name="address" 

@@ -280,6 +280,147 @@
     color: #2d1e1c;
 }
 
+.dash-page-wrapper {
+    background: #fdfbfb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-subtitle {
+    color: #6b5350;
+}
+
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(184, 91, 108, 0.12);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.card-header-flex .card-title {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.dash-icon-highlight {
+    color: #b85b6c;
+}
+
+.btn-dash-sm {
+    padding: 6px 16px;
+    font-size: 0.82rem;
+    text-decoration: none;
+}
+
+.btn-dash-xs {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    text-decoration: none;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.cake-table-icon {
+    color: #b85b6c;
+    font-size: 1.4rem;
+}
+
+.cake-table-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid rgba(184, 91, 108, 0.2);
+}
+
+.empty-state-text {
+    color: #6b5350;
+}
+
+.due-date-text {
+    font-weight: 700;
+    color: #b85b6c;
+    font-size: 0.85rem;
+}
+
+.placed-date-text {
+    font-size: 0.75rem;
+    color: #6b5350;
+}
+
+.order-total-highlight {
+    color: #b85b6c;
+}
+
+.empty-orders-box {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-orders-icon {
+    font-size: 3rem;
+    color: #b85b6c;
+    opacity: 0.5;
+    margin-bottom: 12px;
+}
+
+.empty-orders-text {
+    color: #6b5350;
+    font-size: 1rem;
+}
+
+.btn-margin-top {
+    margin-top: 16px;
+}
+
+.form-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-label-dash {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #2d1e1c;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.form-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.file-input-dash {
+    padding: 6px 10px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-secondary {
+    background: #718096;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    background: #4a5568;
+}
+
 .btn-close-modal {
     background: none;
     border: none;
@@ -288,6 +429,7 @@
     cursor: pointer;
     line-height: 1;
     transition: color 0.2s;
+    text-decoration: none;
 }
 
 .btn-close-modal:hover {

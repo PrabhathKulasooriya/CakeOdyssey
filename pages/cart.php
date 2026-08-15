@@ -40,7 +40,7 @@ $cart_count = 0;
 <body>
 
     <!-- Cart Page Wrapper -->
-    <div style="background: #fdfbfb; min-height: 100vh; display: flex; flex-direction: column;">
+    <div class="cart-page-wrapper">
 
         <!-- Include Navbar -->
         <?php include __DIR__ . '/../navbar.php'; ?>
@@ -53,15 +53,15 @@ $cart_count = 0;
             </div>
 
             <?php if (!empty($success_message)): ?>
-                <div style="background: #e6fffa; border: 1px solid #b2f5ea; color: #234e52; padding: 14px; border-radius: 12px; margin-bottom: 24px; display: flex; align-items: center; gap: 10px;">
-                    <i class="fa-solid fa-circle-check" style="color: #319795; font-size: 1.1rem;"></i>
+                <div class="cart-alert alert-success">
+                    <i class="fa-solid fa-circle-check"></i>
                     <span><?php echo htmlspecialchars($success_message); ?></span>
                 </div>
             <?php endif; ?>
 
             <?php if (!empty($error_message)): ?>
-                <div style="background: #fde8e8; border: 1px solid #f8b4b4; color: #9b1c1c; padding: 14px; border-radius: 12px; margin-bottom: 24px; display: flex; align-items: center; gap: 10px;">
-                    <i class="fa-solid fa-circle-exclamation" style="font-size: 1.1rem;"></i>
+                <div class="cart-alert alert-error">
+                    <i class="fa-solid fa-circle-exclamation"></i>
                     <span><?php echo htmlspecialchars($error_message); ?></span>
                 </div>
             <?php endif; ?>
@@ -93,11 +93,11 @@ $cart_count = 0;
                                     <tr>
                                         <td>
                                             <div class="cart-item-info">
-                                                <div class="cart-item-icon" style="overflow: hidden;">
+                                                <div class="cart-item-icon">
                                                     <?php if ($isIcon): ?>
                                                         <i class="fa-solid <?php echo htmlspecialchars($row['image']); ?>"></i>
                                                     <?php else: ?>
-                                                        <img src="../assests/cake/<?php echo htmlspecialchars($row['image']); ?>" alt="Cake" style="width: 100%; height: 100%; object-fit: cover;">
+                                                        <img src="../assests/cake/<?php echo htmlspecialchars($row['image']); ?>" alt="Cake">
                                                     <?php endif; ?>
                                                 </div>
                                                 <div>
@@ -109,31 +109,31 @@ $cart_count = 0;
                                             Rs. <?php echo number_format($row['base_price'], 2); ?>
                                         </td>
                                         <td>
-                                            <span style="font-weight: 700; color: #b85b6c; font-size: 1.05rem;">
+                                            <span class="cart-item-qty">
                                                 <?php echo $row['quantity']; ?> <?php echo $isKilo ? 'KG' : ''; ?>
                                             </span>
                                         </td>
                                         <td>
                                             <span class="item-price">Rs. <?php echo number_format($itemSubtotal, 2); ?></span>
                                         </td>
-                                        <td style="white-space: nowrap;">
+                                        <td class="cart-action-td">
                                             <?php if ($isKilo): ?>
-                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=increase" style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #9a5f6a; color: white; border-radius: 14px; font-size: 0.78rem; text-decoration: none; font-weight: 600; margin-right: 4px;">
+                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=increase" class="btn-cart-action btn-cart-inc">
                                                     <i class="fa-solid fa-plus"></i>
                                                 </a>
-                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=decrease" style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #718096; color: white; border-radius: 14px; font-size: 0.78rem; text-decoration: none; font-weight: 600; margin-right: 6px;">
+                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=decrease" class="btn-cart-action btn-cart-dec">
                                                     <i class="fa-solid fa-minus"></i>
                                                 </a>
                                             <?php else: ?>
-                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=increase" style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #9a5f6a; color: white; border-radius: 14px; font-size: 0.78rem; text-decoration: none; font-weight: 600; margin-right: 4px;">
+                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=increase" class="btn-cart-action btn-cart-inc">
                                                     <i class="fa-solid fa-plus"></i>
                                                 </a>
-                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=decrease" style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; background: #718096; color: white; border-radius: 14px; font-size: 0.78rem; text-decoration: none; font-weight: 600; margin-right: 6px;">
+                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=decrease" class="btn-cart-action btn-cart-dec">
                                                     <i class="fa-solid fa-minus"></i>
                                                 </a>
                                             <?php endif; ?>
                                             
-                                            <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=delete" class="btn-remove" title="Remove Item" style="vertical-align: middle;">
+                                            <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=delete" class="btn-remove" title="Remove Item">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                         </td>
@@ -159,21 +159,21 @@ $cart_count = 0;
 
                     <div class="summary-row">
                         <span>Islandwide Delivery:</span>
-                        <span style="color: #276749; font-weight: 600;">FREE</span>
+                        <span class="free-delivery-badge">FREE</span>
                     </div>
 
                     <div class="summary-total">
                         <span>Total Amount:</span>
-                        <span style="color: #b85b6c;">Rs. <?php echo number_format($total_amount, 2); ?></span>
+                        <span class="summary-total-price">Rs. <?php echo number_format($total_amount, 2); ?></span>
                     </div>
 
                     <!-- Confirm Cart & Order Form with Required Due Date -->
-                    <form action="../controllers/order_confirm.php" method="POST" style="margin-top: 18px;">
-                        <div style="margin-bottom: 16px; text-align: left;">
-                            <label style="font-size: 0.82rem; font-weight: 700; color: #2d1e1c; display: block; margin-bottom: 6px;">
-                                <i class="fa-solid fa-calendar-day" style="color: #b85b6c;"></i> Select Required Due Date *
+                    <form action="../controllers/order_confirm.php" method="POST" class="order-form">
+                        <div class="due-date-group">
+                            <label class="due-date-label">
+                                <i class="fa-solid fa-calendar-day"></i> Select Required Due Date * (Min. 2 days ahead)
                             </label>
-                            <input type="date" name="due_date" min="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" required style="width: 100%; padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(184, 91, 108, 0.3); font-family: inherit; font-size: 0.9rem; color: #2d1e1c; background: #ffffff; outline: none;">
+                            <input type="date" name="due_date" min="<?php echo date('Y-m-d', strtotime('+2 days')); ?>" value="<?php echo date('Y-m-d', strtotime('+2 days')); ?>" required class="due-date-input">
                         </div>
 
                         <button type="submit" class="btn-confirm-order">
@@ -187,8 +187,8 @@ $cart_count = 0;
 
             <div class="empty-cart-box">
                 <i class="fa-solid fa-basket-shopping empty-cart-icon"></i>
-                <h2 style="font-family: 'Playfair Display', serif; color: #2d1e1c; margin-bottom: 8px;">Your cart is currently empty</h2>
-                <p style="color: #6b5350;">Explore our delicious collection of custom cakes and add your favorites to the cart!</p>
+                <h2 class="empty-cart-title">Your cart is currently empty</h2>
+                <p class="empty-cart-text">Explore our delicious collection of custom cakes and add your favorites to the cart!</p>
                 <a href="cakes.php" class="btn-browse">Explore Our Cakes</a>
             </div>
 

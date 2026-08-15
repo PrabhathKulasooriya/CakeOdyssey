@@ -10,9 +10,11 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id  = (int)$_SESSION['user_id'];
 $due_date = trim($_POST['due_date'] ?? '');
+$min_due_date = date('Y-m-d', strtotime('+2 days'));
 
-if (empty($due_date)) {
-    $due_date = date('Y-m-d', strtotime('+1 day'));
+if (empty($due_date) || strtotime($due_date) === false || $due_date < $min_due_date) {
+    header("Location: ../pages/cart.php?error=" . urlencode("Due date must be at least 2 days from today."));
+    exit();
 }
 
 // Fetch cart items for current user

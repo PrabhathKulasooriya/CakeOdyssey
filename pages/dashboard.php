@@ -47,7 +47,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
 <body>
 
     <!-- Dashboard Hero Page Wrapper -->
-    <div style="background: #fdfbfb; min-height: 100vh; display: flex; flex-direction: column;">
+    <div class="dash-page-wrapper">
 
         <!-- Include Navbar -->
         <?php include __DIR__ . '/../navbar.php'; ?>
@@ -57,7 +57,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
             <div class="dashboard-header">
                 <div>
                     <h1 class="dash-title">Welcome, <?php echo htmlspecialchars($user_name); ?>!</h1>
-                    <p style="color: #6b5350;">Manage your account details and view your orders</p>
+                    <p class="dash-subtitle">Manage your account details and view your orders</p>
                 </div>
                 
             </div>
@@ -78,11 +78,11 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
 
             <!-- Profile Information -->
             <div class="dash-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(184, 91, 108, 0.12); flex-wrap: wrap; gap: 12px;">
-                    <h2 class="card-title" style="margin: 0; border: none; padding: 0;">
-                        <i class="fa-solid fa-id-card" style="color: #b85b6c;"></i> Profile Information
+                <div class="card-header-flex">
+                    <h2 class="card-title">
+                        <i class="fa-solid fa-id-card dash-icon-highlight"></i> Profile Information
                     </h2>
-                    <a href="#editProfileModal" class="btn-dash-action" style="padding: 6px 16px; font-size: 0.82rem; text-decoration: none;">
+                    <a href="#editProfileModal" class="btn-dash-action btn-dash-sm">
                         <i class="fa-solid fa-user-pen"></i> Edit Account Details
                     </a>
                 </div>
@@ -113,8 +113,8 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                 
                 <!-- Manage Cakes Table -->
                 <div class="dash-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                        <h2 class="card-title" style="margin: 0; border: none; padding: 0;"><i class="fa-solid fa-cake-candles" style="color: #b85b6c;"></i> Cake Catalog Management</h2>
+                    <div class="card-header-flex">
+                        <h2 class="card-title"><i class="fa-solid fa-cake-candles dash-icon-highlight"></i> Cake Catalog Management</h2>
                         <a href="#addCakeModal" class="btn-dash-action">
                             <i class="fa-solid fa-plus-circle"></i> Add New Cake
                         </a>
@@ -124,7 +124,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                     $allCakes = mysqli_query($conn, "SELECT * FROM cakes ORDER BY id DESC");
                     if ($allCakes && mysqli_num_rows($allCakes) > 0):
                     ?>
-                        <div style="overflow-x: auto;">
+                        <div class="table-responsive">
                             <table class="order-table">
                                 <thead>
                                     <tr>
@@ -143,9 +143,9 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                             <td>#<?php echo $c['id']; ?></td>
                                             <td>
                                                 <?php if (!empty($c['image']) && strpos($c['image'], 'fa-') === 0): ?>
-                                                    <i class="fa-solid <?php echo htmlspecialchars($c['image']); ?>" style="color: #b85b6c; font-size: 1.4rem;"></i>
+                                                    <i class="fa-solid <?php echo htmlspecialchars($c['image']); ?> cake-table-icon"></i>
                                                 <?php else: ?>
-                                                    <img src="../assests/cake/<?php echo htmlspecialchars($c['image']); ?>" alt="Cake" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(184, 91, 108, 0.2);">
+                                                    <img src="../assests/cake/<?php echo htmlspecialchars($c['image']); ?>" alt="Cake" class="cake-table-thumb">
                                                 <?php endif; ?>
                                             </td>
                                             <td><strong><?php echo htmlspecialchars($c['name']); ?></strong></td>
@@ -153,10 +153,10 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                             <td><?php echo htmlspecialchars($c['size']); ?></td>
                                             <td>Rs. <?php echo number_format($c['base_price'], 2); ?></td>
                                             <td>
-                                                <a href="dashboard.php?edit_id=<?php echo $c['id']; ?>#editCakeModal" class="btn-dash-action btn-edit" style="padding: 6px 12px; font-size: 0.78rem; text-decoration: none;">
+                                                <a href="dashboard.php?edit_id=<?php echo $c['id']; ?>#editCakeModal" class="btn-dash-action btn-edit btn-dash-xs">
                                                     <i class="fa-solid fa-pen"></i> Edit
                                                 </a>
-                                                <a href="../controllers/admin_cake.php?action=delete&id=<?php echo $c['id']; ?>" onclick="return confirm('Are you sure you want to delete this cake?');" class="btn-dash-action btn-delete" style="padding: 6px 12px; font-size: 0.78rem; text-decoration: none;">
+                                                <a href="../controllers/admin_cake.php?action=delete&id=<?php echo $c['id']; ?>" onclick="return confirm('Are you sure you want to delete this cake?');" class="btn-dash-action btn-delete btn-dash-xs">
                                                     <i class="fa-solid fa-trash"></i> Delete
                                                 </a>
                                             </td>
@@ -166,13 +166,13 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                             </table>
                         </div>
                     <?php else: ?>
-                        <p style="color: #6b5350;">No cakes currently in database.</p>
+                        <p class="empty-state-text">No cakes currently in database.</p>
                     <?php endif; ?>
                 </div>
 
                 <!-- Admin: View All Customer Orders -->
                 <div class="dash-card">
-                    <h2 class="card-title"><i class="fa-solid fa-boxes-packing" style="color: #b85b6c;"></i> All Customer Orders</h2>
+                    <h2 class="card-title"><i class="fa-solid fa-boxes-packing dash-icon-highlight"></i> All Customer Orders</h2>
                     
                     <?php
                     $adminOrdersSql = "SELECT o.*, u.name as customer_name, u.mobile_number, u.address as customer_address 
@@ -183,7 +183,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                     
                     if ($adminOrders && mysqli_num_rows($adminOrders) > 0):
                     ?>
-                        <div style="overflow-x: auto;">
+                        <div class="table-responsive">
                             <table class="order-table">
                                 <thead>
                                     <tr>
@@ -193,7 +193,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                         <th>Address</th>
                                         <th>Due Date</th>
                                         <th>Total</th>
-                                        <th>Status</th>
+                                        <!-- <th>Status</th> -->
                                         <th>Items Ordered</th>
                                     </tr>
                                 </thead>
@@ -205,19 +205,19 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                             <td><?php echo htmlspecialchars($ord['mobile_number']); ?></td>
                                             <td><?php echo htmlspecialchars($ord['customer_address']); ?></td>
                                             <td>
-                                                <div style="font-weight: 700; color: #b85b6c; font-size: 0.85rem;">
+                                                <div class="due-date-text">
                                                     <?php echo !empty($ord['due_date']) ? date('M d, Y', strtotime($ord['due_date'])) : 'N/A'; ?>
                                                 </div>
-                                                <div style="font-size: 0.75rem; color: #6b5350;">
+                                                <div class="placed-date-text">
                                                     Placed: <?php echo date('M d, Y', strtotime($ord['created_at'])); ?>
                                                 </div>
                                             </td>
-                                            <td><strong style="color: #b85b6c;">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
-                                            <td>
+                                            <td><strong class="order-total-highlight">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
+                                            <!-- <td>
                                                 <span class="status-badge status-<?php echo strtolower($ord['status']); ?>">
                                                     <?php echo ucfirst($ord['status']); ?>
                                                 </span>
-                                            </td>
+                                            </td> -->
                                             <td>
                                                 <?php
                                                 $oid = $ord['id'];
@@ -234,7 +234,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                             </table>
                         </div>
                     <?php else: ?>
-                        <p style="color: #6b5350;">No customer orders placed yet.</p>
+                        <p class="empty-state-text">No customer orders placed yet.</p>
                     <?php endif; ?>
                 </div>
 
@@ -243,7 +243,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                 <!-- ================= CUSTOMER SECTION ================= -->
                 
                 <div class="dash-card">
-                    <h2 class="card-title"><i class="fa-solid fa-clock-rotate-left" style="color: #b85b6c;"></i> Your Order History</h2>
+                    <h2 class="card-title"><i class="fa-solid fa-clock-rotate-left dash-icon-highlight"></i> Your Order History</h2>
                     
                     <?php
                     $userOrdersSql = "SELECT * FROM orders WHERE user_id = $user_id ORDER BY id DESC";
@@ -251,7 +251,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                     
                     if ($userOrders && mysqli_num_rows($userOrders) > 0):
                     ?>
-                        <div style="overflow-x: auto;">
+                        <div class="table-responsive">
                             <table class="order-table">
                                 <thead>
                                     <tr>
@@ -267,14 +267,14 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                         <tr>
                                             <td><strong><?php echo $ord['id']; ?></strong></td>
                                             <td>
-                                                <div style="font-weight: 700; color: #b85b6c; font-size: 0.88rem;">
+                                                <div class="due-date-text">
                                                     <i class="fa-solid fa-calendar-day"></i> <?php echo !empty($ord['due_date']) ? date('M d, Y', strtotime($ord['due_date'])) : 'N/A'; ?>
                                                 </div>
-                                                <div style="font-size: 0.75rem; color: #6b5350;">
+                                                <div class="placed-date-text">
                                                     Placed: <?php echo date('M d, Y - h:i A', strtotime($ord['created_at'])); ?>
                                                 </div>
                                             </td>
-                                            <td><strong style="color: #b85b6c;">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
+                                            <td><strong class="order-total-highlight">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
                                             <td>
                                                 <span class="status-badge status-<?php echo strtolower($ord['status']); ?>">
                                                     <?php echo ucfirst($ord['status']); ?>
@@ -296,10 +296,10 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                             </table>
                         </div>
                     <?php else: ?>
-                        <div style="text-align: center; padding: 40px 20px;">
-                            <i class="fa-solid fa-receipt" style="font-size: 3rem; color: #b85b6c; opacity: 0.5; margin-bottom: 12px;"></i>
-                            <p style="color: #6b5350; font-size: 1rem;">You haven't placed any orders yet!</p>
-                            <a href="cakes.php" class="btn-dash-action" style="margin-top: 16px;">Browse Our Cakes & Order Now</a>
+                        <div class="empty-orders-box">
+                            <i class="fa-solid fa-receipt empty-orders-icon"></i>
+                            <p class="empty-orders-text">You haven't placed any orders yet!</p>
+                            <a href="cakes.php" class="btn-dash-action btn-margin-top">Browse Our Cakes & Order Now</a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -314,45 +314,45 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
         <div id="addCakeModal" class="modal-overlay">
             <div class="modal-card">
                 <div class="modal-header">
-                    <h2 class="modal-title"><i class="fa-solid fa-plus-circle" style="color: #b85b6c;"></i> Add New Cake to Menu</h2>
-                    <a href="dashboard.php" class="btn-close-modal" style="text-decoration: none;">&times;</a>
+                    <h2 class="modal-title"><i class="fa-solid fa-plus-circle dash-icon-highlight"></i> Add New Cake to Menu</h2>
+                    <a href="dashboard.php" class="btn-close-modal">&times;</a>
                 </div>
                 <form action="../controllers/admin_cake.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="add">
-                    <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <div class="form-stack">
                         <div>
-                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Cake Name *</label>
+                            <label class="form-label-dash">Cake Name *</label>
                             <input type="text" name="name" class="form-control-dash" placeholder="e.g. Red Velvet Dream" required>
                         </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-grid-2col">
                             <div>
-                                <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Type *</label>
+                                <label class="form-label-dash">Type *</label>
                                 <select name="cake_type" class="form-control-dash">
                                     <option value="kilo">Kilo Cake</option>
                                     <option value="custom">Custom Design</option>
                                 </select>
                             </div>
                             <div>
-                                <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Size / Portion *</label>
+                                <label class="form-label-dash">Size / Portion *</label>
                                 <input type="text" name="size" class="form-control-dash" placeholder="e.g. 1 KG or Medium" value="1 KG" required>
                             </div>
                         </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-grid-2col">
                             <div>
-                                <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Base Price (Rs.) *</label>
+                                <label class="form-label-dash">Base Price (Rs.) *</label>
                                 <input type="number" step="100" name="base_price" class="form-control-dash" placeholder="4500" required>
                             </div>
                             <div>
-                                <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Upload Image (Saved to assests/cake)</label>
-                                <input type="file" name="cake_image" accept="image/*" class="form-control-dash" style="padding: 6px 10px;">
+                                <label class="form-label-dash">Upload Image (Saved to assests/cake)</label>
+                                <input type="file" name="cake_image" accept="image/*" class="form-control-dash file-input-dash">
                             </div>
                         </div>
                         <div>
-                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Description</label>
+                            <label class="form-label-dash">Description</label>
                             <input type="text" name="description" class="form-control-dash" placeholder="Brief description of ingredients and flavors">
                         </div>
-                        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
-                            <a href="dashboard.php" class="btn-dash-action" style="background: #718096; text-decoration: none;">Cancel</a>
+                        <div class="modal-actions">
+                            <a href="dashboard.php" class="btn-dash-action btn-secondary">Cancel</a>
                             <button type="submit" class="btn-dash-action"><i class="fa-solid fa-plus"></i> Add Cake</button>
                         </div>
                     </div>
@@ -364,46 +364,46 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
         <div id="editCakeModal" class="modal-overlay <?php echo $editCake ? 'active' : ''; ?>">
             <div class="modal-card">
                 <div class="modal-header">
-                    <h2 class="modal-title"><i class="fa-solid fa-pen-to-square" style="color: #b85b6c;"></i> Edit Cake Details</h2>
-                    <a href="dashboard.php" class="btn-close-modal" style="text-decoration: none;">&times;</a>
+                    <h2 class="modal-title"><i class="fa-solid fa-pen-to-square dash-icon-highlight"></i> Edit Cake Details</h2>
+                    <a href="dashboard.php" class="btn-close-modal">&times;</a>
                 </div>
                 <form action="../controllers/admin_cake.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?php echo $editCake['id'] ?? ''; ?>">
-                    <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <div class="form-stack">
                         <div>
-                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Cake Name *</label>
+                            <label class="form-label-dash">Cake Name *</label>
                             <input type="text" name="name" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['name'] ?? ''); ?>" required>
                         </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-grid-2col">
                             <div>
-                                <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Type *</label>
+                                <label class="form-label-dash">Type *</label>
                                 <select name="cake_type" class="form-control-dash">
                                     <option value="kilo" <?php echo (($editCake['cake_type'] ?? '') === 'kilo') ? 'selected' : ''; ?>>Kilo Cake</option>
                                     <option value="custom" <?php echo (($editCake['cake_type'] ?? '') === 'custom') ? 'selected' : ''; ?>>Custom Design</option>
                                 </select>
                             </div>
                             <div>
-                                <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Size / Portion *</label>
+                                <label class="form-label-dash">Size / Portion *</label>
                                 <input type="text" name="size" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['size'] ?? ''); ?>" required>
                             </div>
                         </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                        <div class="form-grid-2col">
                             <div>
-                                <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Base Price (Rs.) *</label>
+                                <label class="form-label-dash">Base Price (Rs.) *</label>
                                 <input type="number" step="100" name="base_price" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['base_price'] ?? ''); ?>" required>
                             </div>
                             <div>
-                                <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Change Image (Optional)</label>
-                                <input type="file" name="cake_image" accept="image/*" class="form-control-dash" style="padding: 6px 10px;">
+                                <label class="form-label-dash">Change Image (Optional)</label>
+                                <input type="file" name="cake_image" accept="image/*" class="form-control-dash file-input-dash">
                             </div>
                         </div>
                         <div>
-                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c;">Description</label>
+                            <label class="form-label-dash">Description</label>
                             <input type="text" name="description" class="form-control-dash" value="<?php echo htmlspecialchars($editCake['description'] ?? ''); ?>">
                         </div>
-                        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
-                            <a href="dashboard.php" class="btn-dash-action" style="background: #718096; text-decoration: none;">Cancel</a>
+                        <div class="modal-actions">
+                            <a href="dashboard.php" class="btn-dash-action btn-secondary">Cancel</a>
                             <button type="submit" class="btn-dash-action"><i class="fa-solid fa-pen-to-square"></i> Save Changes</button>
                         </div>
                     </div>
@@ -412,41 +412,41 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
         </div>
     <?php endif; ?>
 
-    <!-- EDIT PROFILE MODAL (Pure CSS :target) -->
+    <!-- EDIT PROFILE MODAL -->
     <div id="editProfileModal" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">
-                <h2 class="modal-title"><i class="fa-solid fa-user-pen" style="color: #b85b6c;"></i> Update Account Details</h2>
-                <a href="dashboard.php" class="btn-close-modal" style="text-decoration: none;">&times;</a>
+                <h2 class="modal-title"><i class="fa-solid fa-user-pen dash-icon-highlight"></i> Update Account Details</h2>
+                <a href="dashboard.php" class="btn-close-modal">&times;</a>
             </div>
             <form action="../controllers/profile_update.php" method="POST">
-                <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div class="form-stack">
                     <div>
-                        <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">Full Name *</label>
+                        <label class="form-label-dash">Full Name *</label>
                         <input type="text" name="name" class="form-control-dash" value="<?php echo htmlspecialchars($userProfile['name'] ?? $user_name); ?>" required>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-grid-2col">
                         <div>
-                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">Mobile Number *</label>
+                            <label class="form-label-dash">Mobile Number *</label>
                             <input type="text" name="mobile_number" class="form-control-dash" value="<?php echo htmlspecialchars($userProfile['mobile_number'] ?? ''); ?>" required>
                         </div>
                         <div>
-                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">Delivery Address *</label>
+                            <label class="form-label-dash">Delivery Address *</label>
                             <input type="text" name="address" class="form-control-dash" value="<?php echo htmlspecialchars($userProfile['address'] ?? ''); ?>" required>
                         </div>
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-grid-2col">
                         <div>
-                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">New Password (Optional)</label>
+                            <label class="form-label-dash">New Password (Optional)</label>
                             <input type="password" name="new_password" class="form-control-dash" placeholder="New Password">
                         </div>
                         <div>
-                            <label style="font-size: 0.82rem; font-weight: 600; color: #2d1e1c; display: block; margin-bottom: 4px;">Confirm New Password</label>
+                            <label class="form-label-dash">Confirm New Password</label>
                             <input type="password" name="confirm_password" class="form-control-dash" placeholder="Confirm New Password">
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
-                        <a href="dashboard.php" class="btn-dash-action" style="background: #718096; text-decoration: none;">Cancel</a>
+                    <div class="modal-actions">
+                        <a href="dashboard.php" class="btn-dash-action btn-secondary">Cancel</a>
                         <button type="submit" class="btn-dash-action"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
                     </div>
                 </div>

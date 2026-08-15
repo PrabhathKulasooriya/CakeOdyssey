@@ -21,6 +21,7 @@
     font-family: var(--font-heading, 'Playfair Display', serif);
     cursor: pointer;
     user-select: none;
+    text-decoration: none;
 }
 
 .logo-title {
@@ -84,6 +85,18 @@
 .nav-links a.active::after,
 .nav-links a:hover::after {
     width: 100%;
+}
+
+.nav-links a.nav-user-link {
+    font-weight: 600;
+    color: var(--text-highlight, #b85b6c);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-links a.nav-logout-link {
+    color: var(--text-highlight, #b85b6c);
 }
 
 .nav-icons {

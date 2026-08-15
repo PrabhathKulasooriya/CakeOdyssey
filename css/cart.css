@@ -65,6 +65,43 @@
     gap: 16px;
 }
 
+.cart-page-wrapper {
+    background: #fdfbfb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-alert {
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-alert.alert-success {
+    background: #e6fffa;
+    border: 1px solid #b2f5ea;
+    color: #234e52;
+}
+
+.cart-alert.alert-success i {
+    color: #319795;
+    font-size: 1.1rem;
+}
+
+.cart-alert.alert-error {
+    background: #fde8e8;
+    border: 1px solid #f8b4b4;
+    color: #9b1c1c;
+}
+
+.cart-alert.alert-error i {
+    font-size: 1.1rem;
+}
+
 .cart-item-icon {
     width: 54px;
     height: 54px;
@@ -76,6 +113,13 @@
     justify-content: center;
     font-size: 1.5rem;
     flex-shrink: 0;
+    overflow: hidden;
+}
+
+.cart-item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .cart-item-name {
@@ -128,15 +172,100 @@
     font-size: 1.05rem;
 }
 
+.cart-item-qty {
+    font-weight: 700;
+    color: #b85b6c;
+    font-size: 1.05rem;
+}
+
+.cart-action-td {
+    white-space: nowrap;
+}
+
+.btn-cart-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    color: white;
+    border-radius: 14px;
+    font-size: 0.78rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-cart-inc {
+    background: #9a5f6a;
+    margin-right: 4px;
+}
+
+.btn-cart-dec {
+    background: #718096;
+    margin-right: 6px;
+}
+
 .btn-remove {
     color: #e63946;
     text-decoration: none;
     font-size: 0.88rem;
     transition: all 0.2s;
+    vertical-align: middle;
 }
 
 .btn-remove:hover {
     color: #b91c1c;
+}
+
+.free-delivery-badge {
+    color: #276749;
+    font-weight: 600;
+}
+
+.summary-total-price {
+    color: #b85b6c;
+}
+
+.order-form {
+    margin-top: 18px;
+}
+
+.due-date-group {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.due-date-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #2d1e1c;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.due-date-label i {
+    color: #b85b6c;
+}
+
+.due-date-input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(184, 91, 108, 0.3);
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #2d1e1c;
+    background: #ffffff;
+    outline: none;
+}
+
+.empty-cart-title {
+    font-family: 'Playfair Display', serif;
+    color: #2d1e1c;
+    margin-bottom: 8px;
+}
+
+.empty-cart-text {
+    color: #6b5350;
 }
 
 .summary-card {
