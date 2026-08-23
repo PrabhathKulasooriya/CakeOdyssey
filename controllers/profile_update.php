@@ -28,8 +28,12 @@ if (!empty($new_password)) {
     }
 }
 
+$safe_name          = mysqli_real_escape_string($conn, $name);
+$safe_mobile_number = mysqli_real_escape_string($conn, $mobile_number);
+$safe_address       = mysqli_real_escape_string($conn, $address);
+
 // Check if mobile number belongs to another user
-$checkMobile = mysqli_query($conn, "SELECT id FROM users WHERE mobile_number = '$mobile_number' AND id != $user_id");
+$checkMobile = mysqli_query($conn, "SELECT id FROM users WHERE mobile_number = '$safe_mobile_number' AND id != $user_id");
 if ($checkMobile && mysqli_num_rows($checkMobile) > 0) {
     header("Location: ../pages/dashboard.php?error=" . urlencode("Mobile number is already in use by another account."));
     exit();
@@ -37,9 +41,11 @@ if ($checkMobile && mysqli_num_rows($checkMobile) > 0) {
 
 // Build update query
 if (!empty($new_password)) {
-    $sql = "UPDATE users SET name = '$name', mobile_number = '$mobile_number', address = '$address', password = '$new_password' WHERE id = $user_id";
+    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+    $safe_password   = mysqli_real_escape_string($conn, $hashed_password);
+    $sql = "UPDATE users SET name = '$safe_name', mobile_number = '$safe_mobile_number', address = '$safe_address', password = '$safe_password' WHERE id = $user_id";
 } else {
-    $sql = "UPDATE users SET name = '$name', mobile_number = '$mobile_number', address = '$address' WHERE id = $user_id";
+    $sql = "UPDATE users SET name = '$safe_name', mobile_number = '$safe_mobile_number', address = '$safe_address' WHERE id = $user_id";
 }
 
 if (mysqli_query($conn, $sql)) {

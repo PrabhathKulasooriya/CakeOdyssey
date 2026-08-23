@@ -30,16 +30,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // 2. Check if mobile number is already registered
-    $checkSql = "SELECT * FROM users WHERE mobile_number = '$mobile'";
+    $safeMobile = mysqli_real_escape_string($conn, $mobile);
+    $checkSql = "SELECT * FROM users WHERE mobile_number = '$safeMobile'";
     $checkResult = mysqli_query($conn, $checkSql);
 
     if ($checkResult && mysqli_num_rows($checkResult) > 0) {
         $redirectWithError("Mobile number is already registered!");
     }
 
-    // 3. Insert user into database
+    // 3. Hash password using native PHP password_hash (BCRYPT / DEFAULT)
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $safeName = mysqli_real_escape_string($conn, $name);
+    $safeAddress = mysqli_real_escape_string($conn, $address);
+    $safeHashedPassword = mysqli_real_escape_string($conn, $hashedPassword);
+
+    // 4. Insert user into database
     $insertSql = "INSERT INTO users (name, address, mobile_number, password, role) 
-                  VALUES ('$name', '$address', '$mobile', '$password', 'customer')";
+                  VALUES ('$safeName', '$safeAddress', '$safeMobile', '$safeHashedPassword', 'customer')";
 
     if (mysqli_query($conn, $insertSql)) {
         header("Location: ../pages/login.php?success=" . urlencode("Account created successfully! Please log in."));
