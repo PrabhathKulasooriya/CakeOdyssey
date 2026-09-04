@@ -1,6 +1,38 @@
 /* Shopping Cart Page Stylesheet */
 @import url('fonts.css');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --text-dark: #2d1e1c;
+    --text-muted: #6b5350;
+    --text-highlight: #b85b6c;
+    --bg-banner: #9a5f6a;
+    --bg-banner-dark: #834f59;
+    --accent-light: #fff5f6;
+    --font-heading: 'Playfair Display', 'Georgia', serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fdfbfb;
+    overflow-x: hidden;
+}
+
 .cart-page-container {
     flex-grow: 1;
     padding: 40px 10%;

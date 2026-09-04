@@ -1,24 +1,19 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+if (session_status() === PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/db.php';
 
+// Determine relative base path depending on whether requested file is inside /pages directory
 $scriptPath = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
 $currentPage = basename($scriptPath);
-$inPages = (basename(dirname($scriptPath)) === 'pages');
-$basePath = $inPages ? '../' : './';
-$isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+$basePath = (basename(dirname($scriptPath)) === 'pages') ? '../' : './';
+$isLoggedIn = !empty($_SESSION['user_id']);
 
-// Get cart item count for logged-in users
+// Calculate total cart items for badge display if user is logged in
 $cartCount = 0;
-
 if ($isLoggedIn) {
-    $uid = (int)$_SESSION['user_id'];
-    $res = mysqli_query($conn, "SELECT SUM(quantity) as total FROM cart_items WHERE user_id = $uid");
-    if ($res && $row = mysqli_fetch_assoc($res)) {
-        $cartCount = (int)($row['total'] ?? 0);
+    $res = mysqli_query($conn, "SELECT SUM(quantity) as total FROM cart_items WHERE user_id = " . (int)$_SESSION['user_id']);
+    if ($row = mysqli_fetch_assoc($res)) {
+        $cartCount = (int)$row['total'];
     }
 }
 ?>

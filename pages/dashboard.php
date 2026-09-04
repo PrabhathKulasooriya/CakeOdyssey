@@ -1,11 +1,8 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if (session_status() === PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/../db.php';
 
-// Require login
-if (!isset($_SESSION['user_id'])) {
+if (empty($_SESSION['user_id'])) {
     header("Location: login.php?error=" . urlencode("Please log in to access your dashboard."));
     exit();
 }
@@ -17,17 +14,13 @@ $user_role = $_SESSION['user_role'] ?? 'customer';
 $success_message = $_GET['success'] ?? '';
 $error_message = $_GET['error'] ?? '';
 
-// Fetch user profile details
 $userRes = mysqli_query($conn, "SELECT * FROM users WHERE id = $user_id");
 $userProfile = mysqli_fetch_assoc($userRes);
 
-// Edit Cake Modal Data if editing
-
 $editCake = null;
 if (isset($_GET['edit_id']) && $user_role === 'admin') {
-    $edit_id = (int)$_GET['edit_id'];
-    $editRes = mysqli_query($conn, "SELECT * FROM cakes WHERE id = $edit_id");
-    if ($editRes && mysqli_num_rows($editRes) > 0) {
+    $editRes = mysqli_query($conn, "SELECT * FROM cakes WHERE id = " . (int)$_GET['edit_id']);
+    if ($editRes) {
         $editCake = mysqli_fetch_assoc($editRes);
     }
 }

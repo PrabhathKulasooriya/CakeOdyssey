@@ -1,9 +1,7 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if (session_status() === PHP_SESSION_NONE) session_start();
 
-if (isset($_SESSION['user_id'])) {
+if (!empty($_SESSION['user_id'])) {
     header('Location: ../index.php');
     exit();
 }
@@ -11,7 +9,6 @@ if (isset($_SESSION['user_id'])) {
 $error_message = $_GET['error'] ?? '';
 $success_message = $_GET['success'] ?? '';
 $mobile = $_GET['mobile'] ?? '';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

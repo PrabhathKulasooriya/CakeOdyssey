@@ -1,11 +1,8 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if (session_status() === PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/../db.php';
 
-// User must be logged in to view cart
-if (!isset($_SESSION['user_id'])) {
+if (empty($_SESSION['user_id'])) {
     header("Location: login.php?error=" . urlencode("Please log in to view your cart."));
     exit();
 }
@@ -14,7 +11,6 @@ $user_id = (int)$_SESSION['user_id'];
 $success_message = $_GET['success'] ?? '';
 $error_message = $_GET['error'] ?? '';
 
-// Fetch user's cart items
 $sql = "SELECT c.*, k.name, k.cake_type, k.size, k.image, k.description, k.base_price 
         FROM cart_items c 
         JOIN cakes k ON c.cake_id = k.id 
@@ -117,21 +113,12 @@ $cart_count = 0;
                                             <span class="item-price">Rs. <?php echo number_format($itemSubtotal, 2); ?></span>
                                         </td>
                                         <td class="cart-action-td">
-                                            <?php if ($isKilo): ?>
-                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=increase" class="btn-cart-action btn-cart-inc">
-                                                    <i class="fa-solid fa-plus"></i>
-                                                </a>
-                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=decrease" class="btn-cart-action btn-cart-dec">
-                                                    <i class="fa-solid fa-minus"></i>
-                                                </a>
-                                            <?php else: ?>
-                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=increase" class="btn-cart-action btn-cart-inc">
-                                                    <i class="fa-solid fa-plus"></i>
-                                                </a>
-                                                <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=decrease" class="btn-cart-action btn-cart-dec">
-                                                    <i class="fa-solid fa-minus"></i>
-                                                </a>
-                                            <?php endif; ?>
+                                             <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=increase" class="btn-cart-action btn-cart-inc">
+                                                 <i class="fa-solid fa-plus"></i>
+                                             </a>
+                                             <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=decrease" class="btn-cart-action btn-cart-dec">
+                                                 <i class="fa-solid fa-minus"></i>
+                                             </a>
                                             
                                             <a href="../controllers/cart_remove.php?id=<?php echo $row['id']; ?>&action=delete" class="btn-remove" title="Remove Item">
                                                 <i class="fa-solid fa-trash-can"></i>

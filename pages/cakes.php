@@ -47,28 +47,27 @@
             <div class="cakes-grid">
                 
                 <?php 
+                // Fetch logged-in user's cart state to render active inline quantity controls on product cards
                 $userCart = [];
-                if (isset($_SESSION['user_id'])) {
-                    $uid = (int)$_SESSION['user_id'];
-                    $cartRes = mysqli_query($conn, "SELECT id, cake_id, quantity FROM cart_items WHERE user_id = $uid");
-                    if ($cartRes) {
-                        while ($cRow = mysqli_fetch_assoc($cartRes)) {
-                            $userCart[$cRow['cake_id']] = $cRow;
-                        }
+                if (!empty($_SESSION['user_id'])) {
+                    $cartRes = mysqli_query($conn, "SELECT id, cake_id, quantity FROM cart_items WHERE user_id = " . (int)$_SESSION['user_id']);
+                    while ($cRow = mysqli_fetch_assoc($cartRes)) {
+                        $userCart[$cRow['cake_id']] = $cRow;
                     }
                 }
 
                 $cakesResult = mysqli_query($conn, "SELECT * FROM cakes ORDER BY id ASC");
+                $hasCakes = false;
                 
-                if ($cakesResult && mysqli_num_rows($cakesResult) > 0):
-                    while ($cake = mysqli_fetch_assoc($cakesResult)):
-                        $cakeId = $cake['id'];
-                        $isIcon = !empty($cake['image']) && strpos($cake['image'], 'fa-') === 0;
-                        $isKilo = ($cake['cake_type'] === 'kilo');
-                        
-                        $inCart = isset($userCart[$cakeId]);
-                        $cartQty = $inCart ? (int)$userCart[$cakeId]['quantity'] : 0;
-                        $cartItemId = $inCart ? (int)$userCart[$cakeId]['id'] : 0;
+                while ($cake = mysqli_fetch_assoc($cakesResult)):
+                    $hasCakes = true;
+                    $cakeId = $cake['id'];
+                    $isIcon = !empty($cake['image']) && strpos($cake['image'], 'fa-') === 0;
+                    $isKilo = ($cake['cake_type'] === 'kilo');
+                    
+                    $inCart = isset($userCart[$cakeId]);
+                    $cartQty = $inCart ? (int)$userCart[$cakeId]['quantity'] : 0;
+                    $cartItemId = $inCart ? (int)$userCart[$cakeId]['id'] : 0;
                 ?>
                     <!-- Cake Card -->
                     <div class="cake-card">
@@ -119,10 +118,8 @@
                             </div>
                         </div>
                     </div>
-                <?php 
-                    endwhile;
-                else: 
-                ?>
+                <?php endwhile; ?>
+                <?php if (!$hasCakes): ?>
                     <p class="no-cakes-msg">No cakes available at the moment.</p>
                 <?php endif; ?>
 
