@@ -22,6 +22,7 @@ $userRes = mysqli_query($conn, "SELECT * FROM users WHERE id = $user_id");
 $userProfile = mysqli_fetch_assoc($userRes);
 
 // Edit Cake Modal Data if editing
+
 $editCake = null;
 if (isset($_GET['edit_id']) && $user_role === 'admin') {
     $edit_id = (int)$_GET['edit_id'];
@@ -82,7 +83,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                     <h2 class="card-title">
                         <i class="fa-solid fa-id-card dash-icon-highlight"></i> Profile Information
                     </h2>
-                    <a href="#editProfileModal" class="btn-dash-action btn-dash-sm">
+                    <a href="#editProfileModal" class="btn-dash-action btn-dash-sm test-btn" >
                         <i class="fa-solid fa-user-pen"></i> Edit Account Details
                     </a>
                 </div>
@@ -140,7 +141,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                 <tbody>
                                     <?php while ($c = mysqli_fetch_assoc($allCakes)): ?>
                                         <tr>
-                                            <td>#<?php echo $c['id']; ?></td>
+                                            <td>CK<?php echo $c['id']; ?></td>
                                             <td>
                                                 <?php if (!empty($c['image']) && strpos($c['image'], 'fa-') === 0): ?>
                                                     <i class="fa-solid <?php echo htmlspecialchars($c['image']); ?> cake-table-icon"></i>
@@ -200,7 +201,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                 <tbody>
                                     <?php while ($ord = mysqli_fetch_assoc($adminOrders)): ?>
                                         <tr>
-                                            <td><strong><?php echo $ord['id']; ?></strong></td>
+                                            <td><strong>OR<?php echo $ord['id']; ?></strong></td>
                                             <td><?php echo htmlspecialchars($ord['customer_name']); ?></td>
                                             <td><?php echo htmlspecialchars($ord['mobile_number']); ?></td>
                                             <td><?php echo htmlspecialchars($ord['customer_address']); ?></td>
@@ -310,7 +311,8 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
     </div>
 
     <?php if ($user_role === 'admin'): ?>
-        <!-- ADD CAKE MODAL (Pure CSS :target) -->
+
+        <!-- ADD CAKE MODAL  -->
         <div id="addCakeModal" class="modal-overlay">
             <div class="modal-card">
                 <div class="modal-header">
@@ -323,6 +325,10 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                         <div>
                             <label class="form-label-dash">Cake Name *</label>
                             <input type="text" name="name" class="form-control-dash" placeholder="e.g. Red Velvet Dream" required>
+                        </div>
+                        <div>
+                            <label class="form-label-dash">Cake Flavor *</label>
+                            <input type="text" name="flavor" class="form-control-dash" placeholder="vanila " required>
                         </div>
                         <div class="form-grid-2col">
                             <div>

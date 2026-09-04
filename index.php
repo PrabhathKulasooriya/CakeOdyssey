@@ -19,7 +19,7 @@
         <?php include 'navbar.php'; ?>
 
         <main class="hero-content">
-            <div class="text-content">
+            <div class="text-content" >
                 <p class="greeting">Made with love,<br>baked for happiness <span class="heart-icon">&#9825;</span></p>
                 
                 <h1 class="main-heading">
@@ -58,7 +58,7 @@
 
     <!-- Bottom Banner -->
     <footer class="bottom-banner">
-        <div class="banner-item">
+        <div class="banner-item" id="banner-item-1">
             <i class="fa-solid fa-truck-fast banner-icon"></i>
             <span>Islandwide<br>Delivery</span>
         </div>

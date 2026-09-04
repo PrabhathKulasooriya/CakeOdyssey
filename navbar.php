@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 require_once __DIR__ . '/db.php';
 
 $scriptPath = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
@@ -12,6 +13,7 @@ $isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 
 // Get cart item count for logged-in users
 $cartCount = 0;
+
 if ($isLoggedIn) {
     $uid = (int)$_SESSION['user_id'];
     $res = mysqli_query($conn, "SELECT SUM(quantity) as total FROM cart_items WHERE user_id = $uid");
@@ -20,6 +22,7 @@ if ($isLoggedIn) {
     }
 }
 ?>
+
 <header class="navbar">
     <a href="<?php echo $basePath; ?>index.php" class="logo">
         <div class="logo-title">Cake Odyssey</div>

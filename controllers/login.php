@@ -1,6 +1,8 @@
 <?php
 // Controller: User Login
+
 session_start();
+
 require_once __DIR__ . '/../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -23,15 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 3. Verify password using native PHP password_verify (with fallback support for unhashed legacy accounts)
         $passwordMatches = password_verify($password, $user['password']);
-        $isLegacyPlainTextMatch = ($password === $user['password']);
-
-        if ($passwordMatches || $isLegacyPlainTextMatch) {
-            // Automatically rehash plain-text password to password_hash if user logged in with legacy plain text password
-            if ($isLegacyPlainTextMatch && !$passwordMatches) {
-                $newHash = mysqli_real_escape_string($conn, password_hash($password, PASSWORD_DEFAULT));
-                $userId = (int)$user['id'];
-                mysqli_query($conn, "UPDATE users SET password = '$newHash' WHERE id = $userId");
-            }
+        
+        if ($passwordMatches ) {
 
             // Save user info in session
             $_SESSION['user_id'] = $user['id'];

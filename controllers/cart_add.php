@@ -15,6 +15,7 @@ $reqQty  = (int)($_POST['quantity'] ?? 1);
 if ($cake_id > 0) {
     // Fetch cake details
     $cakeQuery = mysqli_query($conn, "SELECT id, name, cake_type FROM cakes WHERE id = $cake_id");
+
     if ($cakeQuery && mysqli_num_rows($cakeQuery) > 0) {
         $cake = mysqli_fetch_assoc($cakeQuery);
         $type = $cake['cake_type'];
@@ -25,10 +26,12 @@ if ($cake_id > 0) {
 
         // Check if item is already in user's cart
         $check = mysqli_query($conn, "SELECT id, quantity FROM cart_items WHERE user_id = $user_id AND cake_id = $cake_id");
+
         if ($check && mysqli_num_rows($check) > 0) {
             $item = mysqli_fetch_assoc($check);
             $newQty = min($item['quantity'] + $reqQty, $maxLimit);
-            mysqli_query($conn, "UPDATE cart_items SET quantity = $newQty WHERE id = " . $item['id']);
+            $sql = "UPDATE cart_items SET quantity = $newQty WHERE id = " . $item['id'];
+            mysqli_query($conn, $sql);
         } else {
             mysqli_query($conn, "INSERT INTO cart_items (user_id, cake_id, quantity, weight_kg) VALUES ($user_id, $cake_id, $reqQty, 1.00)");
         }

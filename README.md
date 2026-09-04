@@ -2,7 +2,6 @@
 A full-stack cake ordering system featuring role-based access, dynamic cart management, and flexible checkout handling both fixed-size custom cakes and weight-based kilo cakes.
 
 # Cake Ordering System
-
 A comprehensive web application designed to manage a bakery's inventory and customer orders. This system handles the complexities of bakery pricing by supporting both fixed-size custom cakes and variable weight-based (kilo) cakes within a single, dynamic cart system.
 
 ## 🚀 Key Features

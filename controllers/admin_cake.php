@@ -43,6 +43,7 @@ if ($action === 'add') {
     $name = trim($_POST['name'] ?? '');
     $cake_type = trim($_POST['cake_type'] ?? 'kilo');
     $size = trim($_POST['size'] ?? '1 KG');
+    $flavor = trim($_POST['flavor'] ?? '');
     $description = trim($_POST['description'] ?? '');
     $base_price = (float)($_POST['base_price'] ?? 0.00);
 
@@ -92,6 +93,7 @@ elseif ($action === 'edit') {
     header("Location: ../pages/dashboard.php?error=" . urlencode("Failed to update cake."));
     exit();
 } 
+
 elseif ($action === 'delete') {
     $id = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
     if ($id > 0) {
