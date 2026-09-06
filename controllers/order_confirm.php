@@ -33,7 +33,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 // Save order master record
-if (mysqli_query($conn, "INSERT INTO orders (user_id, total_amount, due_date, status) VALUES ($user_id, $total_amount, '$due_date', 'pending')")) {
+if (mysqli_query($conn, "INSERT INTO orders (user_id, total_amount, due_date, status) VALUES ($user_id, $total_amount, '$due_date', 'Order Received')")) {
     $order_id = mysqli_insert_id($conn);
 
     // Save individual order items with price_locked snapshot

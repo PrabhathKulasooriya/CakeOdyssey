@@ -375,7 +375,7 @@ body {
     background: #e6fffa;
     border: 1px solid #b2f5ea;
     color: #234e52;
-    padding: 14px 20px;
+    padding: 14px 44px 14px 20px;
     border-radius: 30px;
     text-align: center;
     font-weight: 600;
@@ -385,6 +385,34 @@ body {
     justify-content: center;
     gap: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    position: relative;
+}
+
+.alert-close-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: inherit;
+    opacity: 0.65;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.alert-close-btn:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.12);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .success-alert i {

@@ -10,4 +10,7 @@ if (!$conn) {
 if (!$conn) {
     die("Database Connection Failed: " . mysqli_connect_error());
 }
+
+// Automatically ensure orders status column is VARCHAR(50) to support custom status values ('Order Received', 'In the Oven', 'Cake is Ready', etc.)
+@mysqli_query($conn, "ALTER TABLE orders MODIFY status VARCHAR(50) NOT NULL DEFAULT 'Order Received'");
 ?>

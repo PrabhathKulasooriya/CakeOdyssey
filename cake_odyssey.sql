@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `user_id` int NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `due_date` date DEFAULT NULL,
-  `status` enum('pending','paid','completed') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Order Received',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)

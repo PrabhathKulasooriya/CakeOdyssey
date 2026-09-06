@@ -60,6 +60,9 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                 <div class="alert-box alert-success">
                     <i class="fa-solid fa-circle-check"></i>
                     <span><?php echo htmlspecialchars($success_message); ?></span>
+                    <button type="button" class="alert-close-btn" onclick="this.parentElement.style.display='none'">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
             <?php endif; ?>
 
@@ -67,6 +70,9 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                 <div class="alert-box alert-error">
                     <i class="fa-solid fa-circle-exclamation"></i>
                     <span><?php echo htmlspecialchars($error_message); ?></span>
+                    <button type="button" class="alert-close-btn" onclick="this.parentElement.style.display='none'">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
                 </div>
             <?php endif; ?>
 
@@ -187,7 +193,7 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                         <th>Address</th>
                                         <th>Due Date</th>
                                         <th>Total</th>
-                                        <!-- <th>Status</th> -->
+                                        <th>Status / Action</th>
                                         <th>Items Ordered</th>
                                     </tr>
                                 </thead>
@@ -207,11 +213,24 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                                 </div>
                                             </td>
                                             <td><strong class="order-total-highlight">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
-                                            <!-- <td>
-                                                <span class="status-badge status-<?php echo strtolower($ord['status']); ?>">
-                                                    <?php echo ucfirst($ord['status']); ?>
-                                                </span>
-                                            </td> -->
+                                            <td>
+                                                <form action="../controllers/update_order_status.php" method="POST" class="order-status-form">
+                                                    <input type="hidden" name="order_id" value="<?php echo $ord['id']; ?>">
+                                                    <div class="status-select-group">
+                                                        <select name="status" class="status-select status-select-<?php echo strtolower(str_replace(' ', '-', $ord['status'])); ?>">
+                                                            <option value="Order Received" <?php echo ($ord['status'] === 'Order Received') ? 'selected' : ''; ?>>Order Received</option>
+                                                            <option value="In the Oven" <?php echo ($ord['status'] === 'In the Oven') ? 'selected' : ''; ?>>In the Oven</option>
+                                                            <option value="Cake is Ready" <?php echo ($ord['status'] === 'Cake is Ready') ? 'selected' : ''; ?>>Cake is Ready</option>
+                                                            <option value="Out for Delivery" <?php echo ($ord['status'] === 'Out for Delivery') ? 'selected' : ''; ?>>Out for Delivery</option>
+                                                            <option value="Completed" <?php echo ($ord['status'] === 'Completed') ? 'selected' : ''; ?>>Completed</option>
+                                                            <option value="Cancelled" <?php echo ($ord['status'] === 'Cancelled') ? 'selected' : ''; ?>>Cancelled</option>
+                                                        </select>
+                                                        <button type="submit" class="btn-status-update" title="Update Status">
+                                                            <i class="fa-solid fa-check"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </td>
                                             <td>
                                                 <?php
                                                 $oid = $ord['id'];
@@ -270,8 +289,8 @@ if (isset($_GET['edit_id']) && $user_role === 'admin') {
                                             </td>
                                             <td><strong class="order-total-highlight">Rs. <?php echo number_format($ord['total_amount'], 0); ?></strong></td>
                                             <td>
-                                                <span class="status-badge status-<?php echo strtolower($ord['status']); ?>">
-                                                    <?php echo ucfirst($ord['status']); ?>
+                                                <span class="status-badge status-<?php echo strtolower(str_replace(' ', '-', $ord['status'])); ?>">
+                                                    <?php echo htmlspecialchars($ord['status']); ?>
                                                 </span>
                                             </td>
                                             <td>

@@ -39,6 +39,9 @@
             <div class="success-alert">
                 <i class="fa-solid fa-circle-check"></i>
                 <span><?php echo htmlspecialchars($_GET['success']); ?></span>
+                <button type="button" class="alert-close-btn" onclick="this.parentElement.style.display='none'">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
         <?php endif; ?>
 

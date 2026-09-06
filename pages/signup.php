@@ -46,6 +46,9 @@ $mobile = $_GET['mobile'] ?? '';
                     <div class="alert-error">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <span><?php echo htmlspecialchars($error_message); ?></span>
+                        <button type="button" class="alert-close-btn" onclick="this.parentElement.style.display='none'">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                 <?php endif; ?>
 
@@ -53,6 +56,9 @@ $mobile = $_GET['mobile'] ?? '';
                     <div class="alert-success">
                         <i class="fa-solid fa-circle-check"></i>
                         <span><?php echo htmlspecialchars($success_message); ?> <a href="login.php" class="alert-link">Click here to Log In</a></span>
+                        <button type="button" class="alert-close-btn" onclick="this.parentElement.style.display='none'">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                 <?php endif; ?>
 

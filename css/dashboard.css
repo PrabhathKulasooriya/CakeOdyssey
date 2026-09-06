@@ -74,13 +74,41 @@ body {
 }
 
 .alert-box {
-    padding: 14px 18px;
+    padding: 14px 44px 14px 18px;
     border-radius: 12px;
     margin-bottom: 24px;
     font-size: 0.92rem;
     display: flex;
     align-items: center;
     gap: 10px;
+    position: relative;
+}
+
+.alert-close-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.06);
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: inherit;
+    opacity: 0.65;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.alert-close-btn:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.12);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .alert-success { 
@@ -169,16 +197,79 @@ body {
 
 .status-badge {
     display: inline-block;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
     font-weight: 700;
-    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
-.status-pending { background: #fefcbf; color: #744210; }
-.status-paid { background: #c6f6d5; color: #22543d; }
-.status-completed { background: #e9d8fd; color: #44337a; }
+.status-order-received { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
+.status-in-the-oven { background: #fffaf0; color: #dd6b20; border: 1px solid #fbd38d; }
+.status-cake-is-ready { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+.status-out-for-delivery { background: #faf5ff; color: #6b46c1; border: 1px solid #e9d8fd; }
+.status-completed { background: #e6fffa; color: #234e52; border: 1px solid #b2f5ea; }
+.status-cancelled { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
+.status-pending { background: #fefcbf; color: #744210; border: 1px solid #faf089; }
+.status-paid { background: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; }
+
+/* Admin Order Status Form */
+.order-status-form {
+    display: inline-block;
+    margin: 0;
+}
+
+.status-select-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-select {
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1.5px solid rgba(184, 91, 108, 0.3);
+    background-color: #ffffff;
+    color: var(--text-dark);
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.status-select:focus {
+    border-color: #b85b6c;
+    box-shadow: 0 0 0 3px rgba(184, 91, 108, 0.15);
+}
+
+.status-select-order-received { border-color: #3182ce; color: #2b6cb0; background-color: #ebf8ff; }
+.status-select-in-the-oven { border-color: #dd6b20; color: #c05621; background-color: #fffaf0; }
+.status-select-cake-is-ready { border-color: #38a169; color: #276749; background-color: #f0fff4; }
+.status-select-out-for-delivery { border-color: #805ad5; color: #6b46c1; background-color: #faf5ff; }
+.status-select-completed { border-color: #319795; color: #234e52; background-color: #e6fffa; }
+.status-select-cancelled { border-color: #e53e3e; color: #c53030; background-color: #fff5f5; }
+
+.btn-status-update {
+    background: #9a5f6a;
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.85rem;
+}
+
+.btn-status-update:hover {
+    background: #834f59;
+    transform: scale(1.05);
+}
 
 /* Admin Forms & Tables */
 
