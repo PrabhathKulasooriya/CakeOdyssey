@@ -7,18 +7,6 @@
     box-sizing: border-box;
 }
 
-:root {
-    --text-dark: #2d1e1c;
-    --text-muted: #6b5350;
-    --text-highlight: #b85b6c;
-    --bg-banner: #9a5f6a;
-    --bg-banner-dark: #834f59;
-    --accent-light: #fff5f6;
-    --font-heading: 'Playfair Display', 'Georgia', serif;
-    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -30,15 +18,15 @@
     top: 0;
     z-index: 100;
     border-bottom: 1px solid rgba(184, 91, 108, 0.1);
-    transition: var(--transition, all 0.3s ease);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: 75px;
-    font-family: var(--font-body, 'Plus Jakarta Sans', -apple-system, sans-serif);
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
 }
 
 .logo {
     text-align: center;
-    color: var(--text-highlight, #b85b6c);
-    font-family: var(--font-heading, 'Playfair Display', serif);
+    color: #b85b6c;
+    font-family: 'Playfair Display', 'Georgia', serif;
     cursor: pointer;
     user-select: none;
     text-decoration: none;
@@ -55,15 +43,15 @@
 .logo-subtitle {
     font-size: 0.55rem;
     letter-spacing: 2.5px;
-    color: var(--text-muted, #6b5350);
-    font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+    color: #6b5350;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
     font-weight: 600;
     margin-top: 4px;
 }
 
 .logo-heart {
     font-size: 0.65rem;
-    color: var(--text-highlight, #b85b6c);
+    color: #b85b6c;
     margin-top: 2px;
     line-height: 1;
 }
@@ -73,15 +61,15 @@
     display: flex;
     gap: 30px;
     align-items: center;
-    font-family: var(--font-body, 'Plus Jakarta Sans', -apple-system, sans-serif);
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: var(--text-dark, #2d1e1c);
+    color: #2d1e1c;
     font-size: 0.9rem;
     font-weight: 500;
-    font-family: var(--font-body, 'Plus Jakarta Sans', -apple-system, sans-serif);
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
     position: relative;
     padding: 2px 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -94,14 +82,14 @@
     left: 0;
     width: 0%;
     height: 2px;
-    background-color: var(--text-highlight, #b85b6c);
+    background-color: #b85b6c;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 2px;
 }
 
 .nav-links a.active, 
 .nav-links a:hover {
-    color: var(--text-highlight, #b85b6c);
+    color: #b85b6c;
 }
 
 .nav-links a.active::after,
@@ -111,14 +99,14 @@
 
 .nav-links a.nav-user-link {
     font-weight: 600;
-    color: var(--text-highlight, #b85b6c);
+    color: #b85b6c;
     display: inline-flex;
     align-items: center;
     gap: 6px;
 }
 
 .nav-links a.nav-logout-link {
-    color: var(--text-highlight, #b85b6c);
+    color: #b85b6c;
 }
 
 .nav-icons {
@@ -129,7 +117,7 @@
 }
 
 .icon-btn {
-    color: var(--text-dark, #2d1e1c);
+    color: #2d1e1c;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -144,7 +132,7 @@
 }
 
 .icon-btn:hover {
-    color: var(--text-highlight, #b85b6c);
+    color: #b85b6c;
     background: #fff;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(184, 91, 108, 0.15);
@@ -159,7 +147,7 @@
     position: absolute;
     top: -3px;
     right: -3px;
-    background-color: var(--text-highlight, #b85b6c);
+    background-color: #b85b6c;
     color: white;
     font-size: 0.65rem;
     font-weight: 700;
@@ -176,7 +164,7 @@
     display: none;
     background: none;
     border: none;
-    color: var(--text-dark, #2d1e1c);
+    color: #2d1e1c;
     cursor: pointer;
     padding: 4px;
     font-size: 1.25rem;

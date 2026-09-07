@@ -7,25 +7,13 @@
     box-sizing: border-box;
 }
 
-:root {
-    --text-dark: #2d1e1c;
-    --text-muted: #6b5350;
-    --text-highlight: #b85b6c;
-    --bg-banner: #9a5f6a;
-    --bg-banner-dark: #834f59;
-    --accent-light: #fff5f6;
-    --font-heading: 'Playfair Display', 'Georgia', serif;
-    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    font-family: var(--font-body);
-    color: var(--text-dark);
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    color: #2d1e1c;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -60,33 +48,33 @@ body {
 
 .greeting {
     font-size: 1.1rem;
-    color: var(--text-muted);
+    color: #6b5350;
     font-weight: 500;
     margin-bottom: 8px;
 }
 
 .heart-icon {
-    color: var(--text-highlight);
+    color: #b85b6c;
     display: inline-block;
 }
 
 .main-heading {
-    font-family: var(--font-heading);
+    font-family: 'Playfair Display', 'Georgia', serif;
     font-size: clamp(2.4rem, 4.5vw, 3.5rem);
     line-height: 1.1;
-    color: var(--text-dark);
+    color: #2d1e1c;
     margin-bottom: 16px;
     font-weight: 700;
 }
 
 .heading-highlight {
-    color: var(--text-highlight);
+    color: #b85b6c;
     font-style: italic;
     font-weight: 400;
 }
 
 .divider {
-    color: var(--text-highlight);
+    color: #b85b6c;
     margin-bottom: 16px;
     font-size: 1rem;
     opacity: 0.8;
@@ -98,7 +86,7 @@ body {
 
 .description {
     font-size: 1rem;
-    color: var(--text-muted);
+    color: #6b5350;
     line-height: 1.6;
     font-weight: 400;
 }
@@ -120,21 +108,21 @@ body {
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(6px);
     border: 1px solid rgba(184, 91, 108, 0.2);
-    color: var(--text-dark);
+    color: #2d1e1c;
     padding: 10px 20px;
     border-radius: 30px;
     font-size: 0.88rem;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .filter-btn:hover,
 .filter-btn.active {
-    background: var(--bg-banner);
+    background: #9a5f6a;
     color: #ffffff;
-    border-color: var(--bg-banner);
+    border-color: #9a5f6a;
     box-shadow: 0 4px 16px rgba(154, 95, 106, 0.3);
     transform: translateY(-2px);
 }
@@ -165,7 +153,7 @@ body {
     padding: 20px;
     position: relative;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
 }
@@ -214,19 +202,19 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.9);
     border: none;
-    color: var(--text-highlight);
+    color: #b85b6c;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     font-size: 1rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
 }
 
 .wishlist-btn:hover {
-    background: var(--text-highlight);
+    background: #b85b6c;
     color: white;
     transform: scale(1.1);
 }
@@ -241,7 +229,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 18px;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cake-card:hover .cake-img-box {
@@ -250,9 +238,9 @@ body {
 
 .cake-placeholder-icon {
     font-size: 4rem;
-    color: var(--text-highlight);
+    color: #b85b6c;
     opacity: 0.8;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cake-img-box img {
@@ -285,22 +273,22 @@ body {
 }
 
 .cake-rating span {
-    color: var(--text-muted);
+    color: #6b5350;
     font-size: 0.75rem;
     margin-left: 4px;
 }
 
 .cake-title {
-    font-family: var(--font-heading);
+    font-family: 'Playfair Display', 'Georgia', serif;
     font-size: 1.35rem;
-    color: var(--text-dark);
+    color: #2d1e1c;
     margin-bottom: 8px;
     font-weight: 700;
 }
 
 .cake-desc {
     font-size: 0.85rem;
-    color: var(--text-muted);
+    color: #6b5350;
     line-height: 1.5;
     margin-bottom: 20px;
     flex-grow: 1;
@@ -329,7 +317,7 @@ body {
 .qty-picker label {
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: #2d1e1c;
 }
 
 .qty-picker input[type="number"] {
@@ -340,7 +328,7 @@ body {
     font-family: inherit;
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--text-highlight);
+    color: #b85b6c;
     text-align: center;
     background: #ffffff;
     outline: none;
@@ -349,14 +337,14 @@ body {
 .cake-price {
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--text-highlight);
+    color: #b85b6c;
 }
 
 .btn-add-cart {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(135deg, var(--bg-banner) 0%, var(--bg-banner-dark) 100%);
+    background: linear-gradient(135deg, #9a5f6a 0%, #834f59 100%);
     color: white;
     border: none;
     padding: 10px 18px;
@@ -364,7 +352,7 @@ body {
     font-size: 0.82rem;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 14px rgba(154, 95, 106, 0.25);
     text-decoration: none;
 }
@@ -434,7 +422,7 @@ body {
 }
 
 .btn-add-cart:hover {
-    background: linear-gradient(135deg, var(--bg-banner-dark) 0%, #6e3e47 100%);
+    background: linear-gradient(135deg, #834f59 0%, #6e3e47 100%);
     box-shadow: 0 6px 18px rgba(154, 95, 106, 0.35);
 }
 
@@ -502,7 +490,7 @@ body {
     font-size: 0.95rem;
     font-weight: 500;
     line-height: 1.35;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .banner-item:hover {
